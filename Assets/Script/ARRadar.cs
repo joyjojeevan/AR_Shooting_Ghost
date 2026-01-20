@@ -56,5 +56,14 @@ public class ARRadar : MonoBehaviour
                 ghostDots[ghost].anchoredPosition = ghostDots[ghost].anchoredPosition.normalized * radarRadius;
             }
         }
+        // Rotate camera
+        float rotationY = Camera.main.transform.eulerAngles.y;
+        radarRect.localRotation = Quaternion.Euler(0, 0, rotationY);
+
+        //so they stay upright
+        foreach (var dot in ghostDots.Values)
+        {
+            dot.localRotation = Quaternion.Euler(0, 0, -rotationY);
+        }
     }
 }
