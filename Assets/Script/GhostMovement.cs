@@ -63,7 +63,7 @@ public class GhostMovement : MonoBehaviour
         //Target is Player Position + Random Offset + Height
         targetPoint = new Vector3(
             player.position.x + randomCircle.x,
-            player.position.y + Random.Range(-1f, 3f),
+            player.position.y + Random.Range(-1.5f, 2f),
             player.position.z + randomCircle.y
         );
 
@@ -71,6 +71,16 @@ public class GhostMovement : MonoBehaviour
         if (Vector3.Distance(targetPoint, player.position) < stopDistance)
         {
             targetPoint += (targetPoint - player.position).normalized * stopDistance;
+        }
+    }
+    void OnEnable()
+    {
+        timer = 0;
+
+        if (player == null) player = Camera.main.transform;
+        if (player != null)
+        {
+            SetNewTargetPoint();
         }
     }
 }

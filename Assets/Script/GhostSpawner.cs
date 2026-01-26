@@ -15,12 +15,19 @@ public class GhostSpawner : MonoBehaviour
     public float minHeight = 0.5f;
     public float maxHeight = 1.5f;
 
+    [Header("Pool Settings")]
+    public int poolSize = 20;
+    private Queue<GameObject> ghostPool = new Queue<GameObject>();
+    
     internal List<GameObject> aliveGhosts = new List<GameObject>();
 
     void Awake()
     {
         if (instance == null)
+        {
             instance = this;
+            InitializePool();
+        }
         else
             Destroy(gameObject);
     }
@@ -28,28 +35,44 @@ public class GhostSpawner : MonoBehaviour
     {
         SpawnMultiple(startGhostCount);
     }
-    // intrnel metho and call ,distroy call call spawn
-    internal void OnGhostDestroyed(GameObject ghost)
+    void InitializePool()
     {
-        aliveGhosts.Remove(ghost);
-
-        if (aliveGhosts.Count <= respawnThreshold)
+        for (int i = 0; i < poolSize; i++)
         {
-            SpawnMultiple(respawnGhostCount);
+            GameObject ghost = Instantiate(ghostPrefab);
+            ghost.SetActive(false); // Hide them initially
+            ghostPool.Enqueue(ghost);
         }
     }
-    void SpawnMultiple(int count)
+    public void SpawnMultiple(int count)
     {
-        Camera cam = Camera.main;
-
         for (int i = 0; i < count; i++)
         {
-            Vector3 spawnPos = GetRandomPositionAround(cam.transform);
-            GameObject ghost = Instantiate(ghostPrefab, spawnPos, Quaternion.identity);
-            aliveGhosts.Add(ghost);
+            if (ghostPool.Count > 0)
+            {
+                GameObject ghost = ghostPool.Dequeue();
+
+                // Set Position
+                ghost.transform.position = GetRandomPositionAround(Camera.main.transform);
+                ghost.SetActive(true);
+
+                aliveGhosts.Add(ghost);
+            }
         }
     }
 
+    public void ReturnGhostToPool(GameObject ghost)
+    {
+        ghost.SetActive(false);
+        aliveGhosts.Remove(ghost);
+        ghostPool.Enqueue(ghost);
+
+        // Auto-respawn logic
+        if (aliveGhosts.Count <= 2)
+        {
+            SpawnMultiple(8);
+        }
+    }
     Vector3 GetRandomPositionAround(Transform player)
     {
         Vector2 circle = Random.insideUnitCircle.normalized * spawnRadius;

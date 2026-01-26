@@ -1,16 +1,19 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class ARRadar : MonoBehaviour
 {
     public RectTransform radarRect; // The Radar Background
     public GameObject ghostDotPrefab;
+    public Image magazineDotUI;
     public float mapScale = 20f;  
 
     private Dictionary<GameObject, RectTransform> ghostDots = new Dictionary<GameObject, RectTransform>();
 
     void Update()
     {
+        //GameObject magazine = GameObject.FindWithTag("Reload");
         //destroyed ghost
         List<GameObject> currentGhosts = GhostSpawner.instance.aliveGhosts;
 
@@ -60,10 +63,46 @@ public class ARRadar : MonoBehaviour
         float rotationY = Camera.main.transform.eulerAngles.y;
         radarRect.localRotation = Quaternion.Euler(0, 0, rotationY);
 
+        GameObject magazine = GameObject.FindWithTag("Reload");
+        if (magazine != null && magazine.activeInHierarchy)
+        {
+            magazineDotUI.gameObject.SetActive(true);
+
+            Vector3 relPos = magazine.transform.position - Camera.main.transform.position;
+            magazineDotUI.rectTransform.anchoredPosition = new Vector2(relPos.x, relPos.z) * mapScale;
+
+            // Boundary Check
+            float radarRadius = radarRect.sizeDelta.x / 2f;
+            if (magazineDotUI.rectTransform.anchoredPosition.magnitude > radarRadius)
+            {
+                magazineDotUI.rectTransform.anchoredPosition = magazineDotUI.rectTransform.anchoredPosition.normalized * radarRadius;
+            }
+
+            // USE THE EXISTING rotationY (Don't use 'float' here)
+            magazineDotUI.rectTransform.localRotation = Quaternion.Euler(0, 0, -rotationY);
+        }
+        else
+        {
+            if (magazineDotUI != null) magazineDotUI.gameObject.SetActive(false);
+        }
+
+
         //so they stay upright
         foreach (var dot in ghostDots.Values)
         {
             dot.localRotation = Quaternion.Euler(0, 0, -rotationY);
+        }
+        if (magazine != null && magazine.activeInHierarchy)
+        {
+            magazineDotUI.rectTransform.localRotation = Quaternion.Euler(0, 0, -rotationY);
+        }
+    }
+    void ApplyBoundary(RectTransform dot)
+    {
+        float radarRadius = radarRect.sizeDelta.x / 2f;
+        if (dot.anchoredPosition.magnitude > radarRadius)
+        {
+            dot.anchoredPosition = dot.anchoredPosition.normalized * radarRadius;
         }
     }
 }

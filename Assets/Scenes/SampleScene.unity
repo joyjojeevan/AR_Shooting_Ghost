@@ -510,6 +510,7 @@ MonoBehaviour:
   spawnRadius: 5
   minHeight: 0.5
   maxHeight: 1.5
+  poolSize: 20
 --- !u!114 &207147542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -840,6 +841,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   radarRect: {fileID: 499783593}
   ghostDotPrefab: {fileID: 8734234465694099622, guid: 4dbf55f58122b43469ca67e245b21310, type: 3}
+  magazineDotUI: {fileID: 1622121294073026487, guid: 4c5b02150e05ba545a6f7489af26013d, type: 3}
   mapScale: 20
 --- !u!1 &773190229
 GameObject:
@@ -873,6 +875,10 @@ MonoBehaviour:
   bulletPrefab: {fileID: 4585142023428021956, guid: 6490bb28f246f2c489f8e505dbe3bd1b, type: 3}
   firePoint: {fileID: 1964602098}
   bulletSpeed: 10
+  magazinePrefab: {fileID: 2866400017384585938, guid: 6903a4fa2f9001140b170455cc0c772a, type: 3}
+  maxAmmo: 10
+  isReloading: 0
+  bulletPoolSize: 15
 --- !u!4 &773190231
 Transform:
   m_ObjectHideFlags: 0
@@ -949,7 +955,6 @@ GameObject:
   - component: {fileID: 1070349720}
   - component: {fileID: 1070349719}
   - component: {fileID: 1070349718}
-  - component: {fileID: 1070349722}
   m_Layer: 0
   m_Name: Gun
   m_TagString: Untagged
@@ -1047,21 +1052,6 @@ Transform:
   - {fileID: 1964602098}
   m_Father: {fileID: 168840286}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1070349722
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1070349717}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95156e140757cb24c92fe51ac49c97a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 0}
-  firePoint: {fileID: 0}
-  bulletSpeed: 8
 --- !u!1 &1082035086
 GameObject:
   m_ObjectHideFlags: 0

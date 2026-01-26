@@ -1,35 +1,82 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class ShootManager : MonoBehaviour
 {
+    public static ShootManager instance;
+
     public GameObject bulletPrefab;
     public Transform firePoint;
-    public float bulletSpeed = 8f;
+    public float bulletSpeed = 15f;
+    private float bulletMoveDis = 20f;
+    public GameObject magazinePrefab;
+    private GameObject activeMagazine;
+    private Camera mainCam;
 
+    [Header("Ammo Settings")]
+    public int maxAmmo = 10;
+    private int currentAmmo;
+    public bool isReloading = false;
+
+    [Header("Pool Settings")]
+    public int bulletPoolSize = 15;
+    private Queue<GameObject> bulletPool = new Queue<GameObject>();
+
+    void Awake()
+    {
+        instance = this;
+        mainCam = Camera.main;
+        InitializeBulletPool();
+    }
+    void Start()
+    {
+        currentAmmo = maxAmmo;
+    }
+    void InitializeBulletPool()
+    {
+        for (int i = 0; i < bulletPoolSize; i++)
+        {
+            GameObject bullet = Instantiate(bulletPrefab);
+            bullet.SetActive(false);
+            bulletPool.Enqueue(bullet);
+        }
+    }
     public void ShootButtonPressed()
     {
-        Shoot();
+        if (!isReloading && currentAmmo > 0)
+        {
+            Shoot();
+        }
     }
-
+    public void Reload()
+    {
+        currentAmmo = maxAmmo;
+        isReloading = false;
+        Debug.Log("Reloaded!");
+    }
     void Shoot()
     {
-        Ray ray = Camera.main.ViewportPointToRay(
-            new Vector3(0.5f, 0.5f, 0)
-        );
+        currentAmmo--;
+        Debug.Log("Ammo left: " + currentAmmo);
+
+        Ray ray = mainCam.ViewportPointToRay( new Vector3(0.5f, 0.5f, 0));
         // Draw a Ray  s
-
         RaycastHit hit;
-
         Vector3 targetPoint;
-
         GameObject hitGhost = null;
 
         // create veriable for maxium point  
-        if (Physics.Raycast(ray, out hit, 20f))
+        if (Physics.Raycast(ray, out hit, bulletMoveDis))
         {
             targetPoint = hit.point;
 
+            if (hit.collider.CompareTag("Reload"))
+            {
+                HandleReload(gameObject);
+                hit.collider.gameObject.SetActive(false);
+                return; 
+            }
             if (hit.collider.CompareTag("Ghost"))
             {
                 hitGhost = hit.collider.gameObject;
@@ -37,24 +84,70 @@ public class ShootManager : MonoBehaviour
         }
         else
         {
-            targetPoint = ray.GetPoint(20f); // shoot forward
+            targetPoint = ray.GetPoint(bulletMoveDis); 
         }
-        // object pooling
 
-        GameObject bullet = Instantiate(
-            bulletPrefab,
-            firePoint.position,
-            Quaternion.identity
-        );
+        GameObject bullet = GetBulletFromPool();
+        bullet.transform.position = firePoint.position;
 
-        StartCoroutine(
-            MoveBullet(bullet, targetPoint, hitGhost)
-        );
+        bullet.SetActive(true);
+        StartCoroutine(MoveBullet(bullet, targetPoint, hitGhost));
+        
+        
+        if (currentAmmo <= 0 )
+        {
+            SpawnMagazine();
+        }
     }
-    
+    public void SpawnMagazine()
+    {
+        if (ShootManager.instance.magazinePrefab == null) return;
+
+        ShootManager.instance.isReloading = true;
+
+        if (activeMagazine == null)
+        {
+            activeMagazine = Instantiate(ShootManager.instance.magazinePrefab);
+        }
+
+        float distance = Random.Range(3f, 6f);
+        float angle = Random.Range(0, 360) * Mathf.Deg2Rad;
+
+        float x = Mathf.Cos(angle) * distance;
+        float z = Mathf.Sin(angle) * distance;
+
+        Vector3 spawnPos = new Vector3(
+            mainCam.transform.position.x + x,
+            mainCam.transform.position.y - 0.3f,
+            mainCam.transform.position.z + z
+        );
+
+        activeMagazine.transform.position = spawnPos;
+        activeMagazine.transform.LookAt(mainCam.transform);
+        activeMagazine.SetActive(true);
+
+    }
+    // get bullet -> return game object
+    GameObject GetBulletFromPool()
+    {
+        if (bulletPool.Count > 0)
+        {
+            return bulletPool.Dequeue();
+        }
+
+        //create new bullet
+        GameObject bullet = Instantiate(bulletPrefab);
+        bullet.SetActive(false);
+        return bullet;
+    }
+    void ReturnBulletToPool(GameObject bullet)
+    {
+        bullet.SetActive(false);
+        bulletPool.Enqueue(bullet);
+    }
     IEnumerator MoveBullet(GameObject bullet, Vector3 target, GameObject ghost)
     {
-        while (bullet != null &&
+        while (bullet.activeInHierarchy &&
                Vector3.Distance(bullet.transform.position, target) > 0.05f)
         {
             bullet.transform.position = Vector3.MoveTowards(
@@ -67,16 +160,21 @@ public class ShootManager : MonoBehaviour
             yield return null;
         }
 
-        // Bullet reached target
         if (ghost != null)
         {
-            GhostSpawner.instance.OnGhostDestroyed(ghost);
-            Destroy(ghost); // ghost destroyed ON TOUCH
+            GhostSpawner.instance.ReturnGhostToPool(ghost);
         }
 
-        Destroy(bullet);
+        ReturnBulletToPool(bullet);
     }
+    public void HandleReload(GameObject magazine)
+    {
+        Reload();
+        magazine.SetActive(false);
+    }
+
 }
+
 /* Raycast = Checking if that ray hits something
 
 Physics.Raycast(ray, out hit, 50f)
