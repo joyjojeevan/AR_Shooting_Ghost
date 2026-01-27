@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI; 
+using TMPro;
 
 public class ShootManager : MonoBehaviour
 {
@@ -23,6 +25,12 @@ public class ShootManager : MonoBehaviour
     public int bulletPoolSize = 15;
     private Queue<GameObject> bulletPool = new Queue<GameObject>();
 
+    [Header("UI References")]
+    public TextMeshProUGUI ammoText;  // Change to 'public Text' if using standard UI
+    public TextMeshProUGUI scoreText;
+
+    private int killedCount = 0;
+
     void Awake()
     {
         instance = this;
@@ -32,6 +40,7 @@ public class ShootManager : MonoBehaviour
     void Start()
     {
         currentAmmo = maxAmmo;
+        UpdateUI();
     }
     void InitializeBulletPool()
     {
@@ -53,11 +62,13 @@ public class ShootManager : MonoBehaviour
     {
         currentAmmo = maxAmmo;
         isReloading = false;
+        UpdateUI();
         Debug.Log("Reloaded!");
     }
     void Shoot()
     {
         currentAmmo--;
+        UpdateUI();
         Debug.Log("Ammo left: " + currentAmmo);
 
         Ray ray = mainCam.ViewportPointToRay( new Vector3(0.5f, 0.5f, 0));
@@ -163,6 +174,7 @@ public class ShootManager : MonoBehaviour
         if (ghost != null)
         {
             GhostSpawner.instance.ReturnGhostToPool(ghost);
+            AddScore();
         }
 
         ReturnBulletToPool(bullet);
@@ -172,7 +184,19 @@ public class ShootManager : MonoBehaviour
         Reload();
         magazine.SetActive(false);
     }
+    void UpdateUI()
+    {
+        if (ammoText != null)
+            ammoText.text = "Ammo: " + currentAmmo + " / " + maxAmmo;
 
+        if (scoreText != null)
+            scoreText.text = "Killed: " + killedCount;
+    }
+    public void AddScore()
+    {
+        killedCount++;
+        UpdateUI();
+    }
 }
 
 /* Raycast = Checking if that ray hits something
