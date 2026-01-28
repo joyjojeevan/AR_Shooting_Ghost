@@ -6,7 +6,7 @@ public class LifeBoxManager : MonoBehaviour
     public static LifeBoxManager Instance;
 
     public GameObject lifeBoxPrefab; 
-    private GameObject activeBox;    
+    public GameObject activeBox;    
 
     public float respawnDelay = 30f;
     public float spawnRadius = 3.5f;

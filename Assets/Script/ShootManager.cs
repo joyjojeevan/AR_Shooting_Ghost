@@ -13,7 +13,7 @@ public class ShootManager : MonoBehaviour
     public float bulletSpeed = 15f;
     private float bulletMoveDis = 20f;
     public GameObject magazinePrefab;
-    private GameObject activeMagazine;
+    public GameObject activeMagazine;
     private Camera mainCam;
 
     [Header("Ammo Settings")]
@@ -84,7 +84,7 @@ public class ShootManager : MonoBehaviour
 
             if (hit.collider.CompareTag("Reload"))
             {
-                HandleReload(gameObject);
+                HandleReload(hit.collider.gameObject);
                 hit.collider.gameObject.SetActive(false);
                 return; 
             }
@@ -119,6 +119,7 @@ public class ShootManager : MonoBehaviour
         if (activeMagazine == null)
         {
             activeMagazine = Instantiate(ShootManager.instance.magazinePrefab);
+            activeMagazine.tag = "Reload";
         }
 
         float distance = Random.Range(3f, 6f);

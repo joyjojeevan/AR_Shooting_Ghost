@@ -46,7 +46,7 @@ public class PlayerHealth : MonoBehaviour
                 healthBarFill.color = Color.red;
             else
                 healthBarFill.color = Color.green;
-                    }
+        }
     }
 
     System.Collections.IEnumerator FlashDamageOverlay()

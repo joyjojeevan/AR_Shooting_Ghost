@@ -75,7 +75,7 @@ public class GhostSpawner : MonoBehaviour
     }
     Vector3 GetRandomPositionAround(Transform player)
     {
-        Vector2 circle = Random.insideUnitCircle.normalized * spawnRadius;
+        Vector2 circle = Random.insideUnitCircle.normalized * Random.Range(1.5f, 5f);
 
         Vector3 pos = player.position +
                       player.right * circle.x +
