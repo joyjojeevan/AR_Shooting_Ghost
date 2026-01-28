@@ -25,7 +25,7 @@ public class ARRadar : MonoBehaviour
                 keysToRemove.Add(ghost);
             }
         }
-
+        // update to get 
         foreach (var ghost in keysToRemove)
         {
             Destroy(ghostDots[ghost].gameObject);
@@ -59,7 +59,7 @@ public class ARRadar : MonoBehaviour
                 ghostDots[ghost].anchoredPosition = ghostDots[ghost].anchoredPosition.normalized * radarRadius;
             }
         }
-        // Rotate camera
+        // Rotate camera -> not need
         float rotationY = Camera.main.transform.eulerAngles.y;
         radarRect.localRotation = Quaternion.Euler(0, 0, rotationY);
 
@@ -95,14 +95,6 @@ public class ARRadar : MonoBehaviour
         if (magazine != null && magazine.activeInHierarchy)
         {
             magazineDotUI.rectTransform.localRotation = Quaternion.Euler(0, 0, -rotationY);
-        }
-    }
-    void ApplyBoundary(RectTransform dot)
-    {
-        float radarRadius = radarRect.sizeDelta.x / 2f;
-        if (dot.anchoredPosition.magnitude > radarRadius)
-        {
-            dot.anchoredPosition = dot.anchoredPosition.normalized * radarRadius;
         }
     }
 }

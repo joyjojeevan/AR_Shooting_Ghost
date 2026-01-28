@@ -11,7 +11,7 @@ public class MagazineObject : MonoBehaviour
     void Update()
     {
         //Spin
-        transform.Rotate(0, 100 * Time.deltaTime, 0);
+        transform.Rotate(50 * Time.deltaTime, 100 * Time.deltaTime, 0);
     }
 
     private void OnMouseDown()

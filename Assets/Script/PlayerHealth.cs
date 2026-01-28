@@ -5,11 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public int maxHealth = 5;
+    public int maxHealth = 10;
     private int currentHealth;
 
     [Header("UI")]
     public TextMeshProUGUI healthText;
+    public Image healthBarFill;
     public Image damageOverlay;
     public GameObject gameOverPanel;
 
@@ -29,13 +30,23 @@ public class PlayerHealth : MonoBehaviour
             TakeDamage(1);
 
             // Want disappar ghost
-            //GhostSpawner.instance.ReturnGhostToPool(other.gameObject);
+            GhostSpawner.instance.ReturnGhostToPool(other.gameObject);
         }
     }
 
     void UpdateHealthUI()
     {
-        if (healthText != null) healthText.text = "HP: " + currentHealth;
+        if (healthText != null)
+            healthText.text = "HP: " + currentHealth + " / " + maxHealth;
+        if (healthBarFill != null)
+        {
+            healthBarFill.fillAmount = (float)currentHealth / maxHealth;
+            float hpPercent = (float)currentHealth / maxHealth;
+            if (hpPercent < 0.3f)
+                healthBarFill.color = Color.red;
+            else
+                healthBarFill.color = Color.green;
+                    }
     }
 
     System.Collections.IEnumerator FlashDamageOverlay()
