@@ -29,7 +29,7 @@ public class ShootManager : MonoBehaviour
     public TextMeshProUGUI ammoText;  // Change to 'public Text' if using standard UI
     public TextMeshProUGUI scoreText;
 
-    private int killedCount = 0;
+    internal int killedCount = 0;
 
     void Awake()
     {
@@ -76,6 +76,7 @@ public class ShootManager : MonoBehaviour
         RaycastHit hit;
         Vector3 targetPoint;
         GameObject hitGhost = null;
+        AudioManager.Instance.PlaySound(SoundType.Fire);
 
         // create veriable for maxium point  
         if (Physics.Raycast(ray, out hit, bulletMoveDis))
@@ -86,11 +87,13 @@ public class ShootManager : MonoBehaviour
             {
                 HandleReload(hit.collider.gameObject);
                 hit.collider.gameObject.SetActive(false);
-                return; 
+                AudioManager.Instance.PlaySound(SoundType.Claim);
+                return;
             }
             if (hit.collider.CompareTag("Ghost"))
             {
                 hitGhost = hit.collider.gameObject;
+                AudioManager.Instance.PlaySound(SoundType.Kill);
             }
         }
         else
@@ -197,6 +200,10 @@ public class ShootManager : MonoBehaviour
     {
         killedCount++;
         UpdateUI();
+    }
+    public int GetKilledCount()
+    {
+        return killedCount;
     }
 }
 

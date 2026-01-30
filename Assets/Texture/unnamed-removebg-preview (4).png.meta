@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 26b0e965be983324794ecd505b373f65
+guid: 763503a87c438244b9e6f34e137a4f8f
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,23 +110,133 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Gun
+      name: border
       rect:
         serializedVersion: 2
-        x: 0
-        y: 71
-        width: 469
-        height: 316
+        x: 15
+        y: 378
+        width: 152
+        height: 171
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 3}
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fec170d8c211e784b8503308b0971d3b
-      internalID: 6678947
+      spriteID: e898a608d2d532748a10681452f37e78
+      internalID: -546860114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logo
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 360
+        width: 59
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6ae08a7e3dbb17f48a993093f3648081
+      internalID: -533541822
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: play btn
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 290
+        width: 111
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48c239da166c9b14da931c7ae3ef301b
+      internalID: -775924238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Restarttext
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 262
+        width: 76
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2bfcf2f336f8d5345bc1f70db3ae14d2
+      internalID: 292407515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BackBtn
+      rect:
+        serializedVersion: 2
+        x: 183
+        y: 190
+        width: 90
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 87065bf6462456a48ad45ac3f603b1ac
+      internalID: -1886428421
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: i
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 70
+        width: 301
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c8cba2335e5b9424c9da79e801fec5e7
+      internalID: -1062879499
       vertices: []
       indices: 
       edges: []
@@ -135,7 +245,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 486b563b51b095d4c824db0ac6f21aa1
+    spriteID: a517f230282d78b49a60222459c0a7b7
     internalID: 0
     vertices: []
     indices: 
@@ -145,7 +255,12 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Gun: 6678947
+      BackBtn: -1886428421
+      Restarttext: 292407515
+      border: -546860114
+      i: -1062879499
+      logo: -533541822
+      play btn: -775924238
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

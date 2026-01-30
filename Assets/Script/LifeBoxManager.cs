@@ -22,8 +22,10 @@ public class LifeBoxManager : MonoBehaviour
         Invoke("SpawnNewBox", 2.0f);
     }
 
+
     public void CollectBox()
     {
+        //use invoke
         StartCoroutine(RespawnTimer());
     }
 
@@ -40,6 +42,7 @@ public class LifeBoxManager : MonoBehaviour
         float angle = Random.Range(0f, 360f) * Mathf.Deg2Rad;
         float distance = Random.Range(1f, spawnRadius);
 
+        // check math
         Vector3 spawnPos = new Vector3(
             Camera.main.transform.position.x + Mathf.Cos(angle) * distance,
             Camera.main.transform.position.y - 0.2f,

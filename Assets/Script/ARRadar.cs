@@ -22,7 +22,7 @@ public class ARRadar : MonoBehaviour
 
         // 1. HANDLE GHOSTS
         HandleGhosts(radarRadius, rotationY);
-
+        // no need to check
         // 2. HANDLE MAGAZINE (Performance Fix: No FindWithTag)
         if (shootManager != null)
         {
@@ -43,6 +43,8 @@ public class ARRadar : MonoBehaviour
     {
         List<GameObject> currentGhosts = GhostSpawner.instance.aliveGhosts;
 
+        // direct use from Ghost spawner 
+        //remove
         // Remove old dots
         List<GameObject> keysToRemove = new List<GameObject>();
         foreach (var ghost in ghostDots.Keys)
@@ -81,7 +83,7 @@ public class ARRadar : MonoBehaviour
     // Generic helper for Magazine and LifeBox
     private void UpdatePickupDot(GameObject worldObj, Image dotUI, float radius, float rotY)
     {
-        if (dotUI == null) return;
+        //if (dotUI == null) return;
 
         if (worldObj != null && worldObj.activeInHierarchy)
         {

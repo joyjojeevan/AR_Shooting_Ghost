@@ -14,6 +14,9 @@ public class PlayerHealth : MonoBehaviour
     public Image damageOverlay;
     public GameObject gameOverPanel;
 
+    private bool isInvulnerable = false;
+    public float invulnerabilityDuration = 1.5f;
+
     void Start()
     {
         currentHealth = maxHealth;
@@ -31,6 +34,28 @@ public class PlayerHealth : MonoBehaviour
 
             // Want disappar ghost
             GhostSpawner.instance.ReturnGhostToPool(other.gameObject);
+        }
+    }
+    public void TakeDamage(int damage)
+    {
+        if (isInvulnerable) return;
+
+        currentHealth -= damage;
+        UpdateHealthUI();
+        StartCoroutine(BecomeInvulnerable());
+
+        // Visual feedback
+        StopCoroutine(FlashDamageOverlay()); // Stop healing flash if taking damage
+        StartCoroutine(FlashDamageOverlay());
+
+        // Haptic feedback for mobile
+        /* vibrate featchres low /hard*/
+        Handheld.Vibrate();
+        AudioManager.Instance.PlaySound(SoundType.Hit);
+
+        if (currentHealth <= 0)
+        {
+            GameOver();
         }
     }
 
@@ -68,7 +93,7 @@ public class PlayerHealth : MonoBehaviour
 
         float intensity = 0.4f;
         damageOverlay.color = new Color(0, 1, 0, intensity); // Green color
-
+        AudioManager.Instance.PlaySound(SoundType.Claim);
         while (intensity > 0)
         {
             intensity -= Time.deltaTime;
@@ -76,34 +101,45 @@ public class PlayerHealth : MonoBehaviour
             yield return null;
         }
     }
-    public void TakeDamage(int damage)
+    System.Collections.IEnumerator BecomeInvulnerable()
     {
-        currentHealth -= damage;
-        UpdateHealthUI();
+        isInvulnerable = true;
+        // Optional: make your gun or HUD blink to show you are safe
+        yield return new WaitForSeconds(invulnerabilityDuration);
+        isInvulnerable = false;
 
-        // Visual feedback
-        StopCoroutine(FlashDamageOverlay()); // Stop healing flash if taking damage
-        StartCoroutine(FlashDamageOverlay());
-
-        // Haptic feedback for mobile
-        Handheld.Vibrate();
-
-        if (currentHealth <= 0)
-        {
-            GameOver();
-        }
     }
 
     void GameOver()
     {
+        int finalScore = ShootManager.instance.GetKilledCount(); // Create this getter in ShootManager
+        int highScore = PlayerPrefs.GetInt("HighScore", 0);
+
+        if (finalScore > highScore)
+        {
+            PlayerPrefs.SetInt("HighScore", finalScore);
+            PlayerPrefs.Save();
+            // Maybe play a "New High Score" sound or show a special UI effect
+        }
         Debug.Log("Game Over!");
         gameOverPanel.SetActive(true);
         Time.timeScale = 0; // Pause 
+        AudioManager.Instance.PlaySound(SoundType.GameOver);
     }
 
     public void RestartGame()
     {
         Time.timeScale = 1; // Play
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.StopAllSounds();
+
+        SceneManager.LoadScene(1);
+    }
+    public void GoMenu()
+    {
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.StopAllSounds();
+
         SceneManager.LoadScene(0);
     }
     public void ResetHealth()

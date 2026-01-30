@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 26b0e965be983324794ecd505b373f65
+guid: b6bb1f6db19154c4a99c04f2d0d50503
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,23 +110,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Gun
+      name: Border
       rect:
         serializedVersion: 2
-        x: 0
-        y: 71
-        width: 469
-        height: 316
+        x: 88
+        y: 151
+        width: 324
+        height: 198
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 3}
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fec170d8c211e784b8503308b0971d3b
-      internalID: 6678947
+      spriteID: 06e7fdcc988abfc43bd66608ebf48be3
+      internalID: 799540368
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 486b563b51b095d4c824db0ac6f21aa1
+    spriteID: dd5b2b93976c4774592bb6459d751ba8
     internalID: 0
     vertices: []
     indices: 
@@ -145,7 +145,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Gun: 6678947
+      Border: 799540368
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 26b0e965be983324794ecd505b373f65
+guid: fc931885051936b47abcb563dcbfad0b
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,23 +110,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Gun
+      name: menuBG
       rect:
         serializedVersion: 2
-        x: 0
-        y: 71
-        width: 469
-        height: 316
+        x: 62
+        y: 34
+        width: 636
+        height: 296
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 3}
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fec170d8c211e784b8503308b0971d3b
-      internalID: 6678947
+      spriteID: 57875c3940c910e429a1f1d88275cafe
+      internalID: -1959239889
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 486b563b51b095d4c824db0ac6f21aa1
+    spriteID: 190d20af88a74574c8a3ef3856a7e0ff
     internalID: 0
     vertices: []
     indices: 
@@ -145,7 +145,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Gun: 6678947
+      menuBG: -1959239889
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

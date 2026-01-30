@@ -13,7 +13,7 @@ public class MagazineObject : MonoBehaviour
         //Spin
         transform.Rotate(50 * Time.deltaTime, 100 * Time.deltaTime, 0);
     }
-
+    //Do raycast
     private void OnMouseDown()
     {
         ShootManager.instance.HandleReload(gameObject);
