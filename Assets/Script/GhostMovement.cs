@@ -19,7 +19,8 @@ public class GhostMovement : MonoBehaviour
 
     void Start()
     {
-        if (player == null) player = Camera.main.transform;
+        if (player == null)
+            player = Camera.main.transform;
         SetNewTargetPoint();
     }
 

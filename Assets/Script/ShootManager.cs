@@ -86,8 +86,8 @@ public class ShootManager : MonoBehaviour
             if (hit.collider.CompareTag("Reload"))
             {
                 HandleReload(hit.collider.gameObject);
-                hit.collider.gameObject.SetActive(false);
-                AudioManager.Instance.PlaySound(SoundType.Claim);
+                //hit.collider.gameObject.SetActive(false);
+                //AudioManager.Instance.PlaySound(SoundType.Claim);
                 return;
             }
             if (hit.collider.CompareTag("Ghost"))

@@ -1,5 +1,5 @@
-using UnityEngine;
-using System.Collections;
+﻿using UnityEngine;
+
 
 public class LifeBoxManager : MonoBehaviour
 {
@@ -26,15 +26,16 @@ public class LifeBoxManager : MonoBehaviour
     public void CollectBox()
     {
         //use invoke
-        StartCoroutine(RespawnTimer());
+        Invoke("SpawnNewBox", respawnDelay);
+        //StartCoroutine(RespawnTimer());
     }
 
-    IEnumerator RespawnTimer()
-    {
-        // The box is already set to inactive by the LifeBox script
-        yield return new WaitForSeconds(respawnDelay);
-        SpawnNewBox();
-    }
+    //IEnumerator RespawnTimer()
+    //{
+    //    // The box is already set to inactive by the LifeBox script
+    //    yield return new WaitForSeconds(respawnDelay);
+    //    SpawnNewBox();
+    //}
 
     void SpawnNewBox()
     {
@@ -64,3 +65,14 @@ public class LifeBoxManager : MonoBehaviour
         Debug.Log("Life Box Spawned at: " + spawnPos);
     }
 }
+/*0° → right
+
+90° → forward
+
+180° → left
+
+270° → back
+
+But Sin/Cos use radians, not degrees
+👉 that’s why we use Mathf.Deg2Rad
+for the perfect circle area , feel better */

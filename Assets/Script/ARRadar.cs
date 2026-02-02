@@ -13,30 +13,35 @@ public class ARRadar : MonoBehaviour
     public Image magazineDotUI;
     public Image lifeBoxDotUI;
 
+    private float radarRadius;
+
+    private Queue<RectTransform> dotPool = new Queue<RectTransform>();
+
     private Dictionary<GameObject, RectTransform> ghostDots = new Dictionary<GameObject, RectTransform>();
 
+    void Start()
+    {
+        radarRadius = radarRect.sizeDelta.x / 2f;
+        for (int i = 0; i < 10; i++)
+        {
+            CreateNewDotForPool();
+        }
+    }
     void Update()
     {
-        float radarRadius = radarRect.sizeDelta.x / 2f;
         float rotationY = Camera.main.transform.eulerAngles.y;
 
-        // 1. HANDLE GHOSTS
+        //HANDLE GHOSTS
         HandleGhosts(radarRadius, rotationY);
-        // no need to check
-        // 2. HANDLE MAGAZINE (Performance Fix: No FindWithTag)
-        if (shootManager != null)
-        {
-            UpdatePickupDot(shootManager.activeMagazine, magazineDotUI, radarRadius, rotationY);
-        }
+        //HANDLE MAGAZINE (Performance Fix: No FindWithTag)
 
-        // 3. HANDLE LIFE BOX (Using the Manager Instance)
-        if (LifeBoxManager.Instance != null)
-        {
+            UpdatePickupDot(shootManager.activeMagazine, magazineDotUI, radarRadius, rotationY);
+        
+        //HANDLE LIFE BOX (Using the Manager Instance)       
             // Note: Ensure 'lifeBox' is public or has a public getter in LifeBoxManager
             UpdatePickupDot(LifeBoxManager.Instance.activeBox, lifeBoxDotUI, radarRadius, rotationY);
-        }
 
-        // 4. ROTATE RADAR BACKGROUND
+        //ROTATE RADAR BACKGROUND
         radarRect.localRotation = Quaternion.Euler(0, 0, rotationY);
     }
     private void HandleGhosts(float radarRadius, float rotationY)
@@ -46,39 +51,73 @@ public class ARRadar : MonoBehaviour
         // direct use from Ghost spawner 
         //remove
         // Remove old dots
-        List<GameObject> keysToRemove = new List<GameObject>();
-        foreach (var ghost in ghostDots.Keys)
-        {
-            if (ghost == null || !currentGhosts.Contains(ghost))
-                keysToRemove.Add(ghost);
-        }
-
-        foreach (var ghost in keysToRemove)
-        {
-            Destroy(ghostDots[ghost].gameObject);
-            ghostDots.Remove(ghost);
-        }
-
-        // Update/Add dots
         foreach (GameObject ghost in currentGhosts)
         {
             if (ghost == null || !ghost.activeInHierarchy) continue;
 
+            // If we don't have a dot for this ghost, get one
             if (!ghostDots.ContainsKey(ghost))
             {
-                GameObject dot = Instantiate(ghostDotPrefab, radarRect);
-                ghostDots.Add(ghost, dot.GetComponent<RectTransform>());
+                ghostDots.Add(ghost, GetDotFromPool());
             }
 
+            // Update Position
             Vector3 relPos = ghost.transform.position - Camera.main.transform.position;
             RectTransform dotRT = ghostDots[ghost];
 
             dotRT.anchoredPosition = new Vector2(relPos.x, relPos.z) * mapScale;
             ApplyBoundary(dotRT, radarRadius);
-
-            // Keep dot upright
             dotRT.localRotation = Quaternion.Euler(0, 0, -rotationY);
         }
+
+        // only remove dots
+        if (ghostDots.Count > currentGhosts.Count)
+        {
+            // We still need a temporary list to avoid the "Collection Modified" error,
+            // but now this ONLY runs when a ghost actually dies.
+            var keysToRemove = new List<GameObject>();
+            foreach (var pair in ghostDots)
+            {
+                if (pair.Key == null || !pair.Key.activeInHierarchy || !currentGhosts.Contains(pair.Key))
+                {
+                    keysToRemove.Add(pair.Key);
+                }
+            }
+
+            foreach (var key in keysToRemove)
+            {
+                ReturnDotToPool(ghostDots[key]);
+                ghostDots.Remove(key);
+            }
+        }
+    }
+    private RectTransform GetDotFromPool()
+    {
+        if (dotPool.Count > 0)
+        {
+            RectTransform dot = dotPool.Dequeue();
+            dot.gameObject.SetActive(true);
+            return dot;
+        }
+        else
+        {
+            return CreateNewDotForPool(true);
+        }
+    }
+
+    private void ReturnDotToPool(RectTransform dot)
+    {
+        dot.gameObject.SetActive(false);
+        dotPool.Enqueue(dot);
+    }
+
+    private RectTransform CreateNewDotForPool(bool active = false)
+    {
+        GameObject obj = Instantiate(ghostDotPrefab, radarRect);
+        RectTransform rt = obj.GetComponent<RectTransform>();
+        obj.SetActive(active);
+        if (!active) dotPool.Enqueue(rt);
+        return rt;
     }
     // Generic helper for Magazine and LifeBox
     private void UpdatePickupDot(GameObject worldObj, Image dotUI, float radius, float rotY)

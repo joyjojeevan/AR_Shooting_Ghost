@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections;
 using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
@@ -49,7 +50,6 @@ public class PlayerHealth : MonoBehaviour
         StartCoroutine(FlashDamageOverlay());
 
         // Haptic feedback for mobile
-        /* vibrate featchres low /hard*/
         Handheld.Vibrate();
         AudioManager.Instance.PlaySound(SoundType.Hit);
 
@@ -74,7 +74,7 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-    System.Collections.IEnumerator FlashDamageOverlay()
+    public IEnumerator FlashDamageOverlay()
     {
         // Quickly show red screen, then fade out
         float intensity = 0.4f;
@@ -87,7 +87,7 @@ public class PlayerHealth : MonoBehaviour
             yield return null;
         }
     }
-    System.Collections.IEnumerator FlashHealingOverlay()
+    public IEnumerator FlashHealingOverlay()
     {
         if (damageOverlay == null) yield break;
 
@@ -101,7 +101,7 @@ public class PlayerHealth : MonoBehaviour
             yield return null;
         }
     }
-    System.Collections.IEnumerator BecomeInvulnerable()
+    public IEnumerator BecomeInvulnerable()
     {
         isInvulnerable = true;
         // Optional: make your gun or HUD blink to show you are safe
@@ -154,9 +154,34 @@ public class PlayerHealth : MonoBehaviour
         Debug.Log("Player Health has been refilled to: " + currentHealth);
     }
 }
-/*Time.timeScale controls how fast time runs in your game.
+/*
+ ****Time.timeScale
+ Time.timeScale controls how fast time runs in your game.
 1	 Normal playback
 0.5	 Slow motion
 2	 Fast forward
 0	 Pause
+
+****Viberation 
+Android only have 
+    longer vibration
+    custom patterns
+  You must use Android Java vibration API
+
+You can fake vibration strength by calling it multiple times.
+    IEnumerator VibratePattern(int times, float delay)
+    {
+        for (int i = 0; i < times; i++)
+        {
+            Handheld.Vibrate();
+            yield return new WaitForSeconds(delay);
+        }
+    }
+    Usage:
+    // Light hit
+    StartCoroutine(VibratePattern(1, 0.1f));
+    // Medium hit
+    StartCoroutine(VibratePattern(3, 0.1f));
+    // Strong hit (boss hit)
+    StartCoroutine(VibratePattern(6, 0.05f));
 */
