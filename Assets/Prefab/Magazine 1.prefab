@@ -666,8 +666,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3211092941246648311}
   - component: {fileID: 2050323862806357046}
-  - component: {fileID: 137388000063476885}
   - component: {fileID: -4535044765704526003}
+  - component: {fileID: 137388000063476885}
   m_Layer: 0
   m_Name: Magazine 1
   m_TagString: Reload
@@ -717,18 +717,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.4746805, y: 5.697942, z: 1.563337}
   m_Center: {x: 0.11122376, y: 0.22094072, z: -0.026986286}
---- !u!114 &137388000063476885
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8554510211766931480}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 350296ed139b5ee4281f9a369f827a12, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!23 &-4535044765704526003
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -774,3 +762,15 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &137388000063476885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8554510211766931480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 350296ed139b5ee4281f9a369f827a12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

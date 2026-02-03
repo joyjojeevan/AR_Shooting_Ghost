@@ -15,6 +15,8 @@ public class PlayerHealth : MonoBehaviour
     public Image damageOverlay;
     public GameObject gameOverPanel;
 
+    public bool isPracticeGhost = false;
+
     private bool isInvulnerable = false;
     public float invulnerabilityDuration = 1.5f;
 

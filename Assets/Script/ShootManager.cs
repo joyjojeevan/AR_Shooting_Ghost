@@ -205,6 +205,13 @@ public class ShootManager : MonoBehaviour
     {
         return killedCount;
     }
+    //private void OnDisable() // Triggered when ReturnToPool or SetActive(false) is called
+    //{
+    //    if (StoryManager.Instance != null)
+    //    {
+    //        StoryManager.Instance.StartMainGame();
+    //    }
+    //}
 }
 
 /* Raycast = Checking if that ray hits something

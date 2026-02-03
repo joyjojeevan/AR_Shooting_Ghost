@@ -8,6 +8,8 @@ TagManager:
   - 'Bullet '
   - Reload
   - LifeBox
+  - InvestigationBox
+  - Gift
   layers:
   - Default
   - TransparentFX

@@ -1,9 +1,10 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class MainMenuManager : MonoBehaviour
 {
-    public TMPro.TextMeshProUGUI menuHighScoreText;
+    public TextMeshProUGUI menuHighScoreText;
     void Start()
     {
         // Retrieve the saved score

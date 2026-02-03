@@ -7,6 +7,9 @@ public class GhostSpawner : MonoBehaviour
 
     public GameObject ghostPrefab;
 
+    [Header("Story Control")]
+    public bool gameStarted = false;
+
     public int startGhostCount = 10;
     public int respawnGhostCount = 8;
     public int respawnThreshold = 2;
@@ -31,10 +34,10 @@ public class GhostSpawner : MonoBehaviour
         else
             Destroy(gameObject);
     }
-    void Start()
-    {
-        SpawnMultiple(startGhostCount);
-    }
+    //void Start()
+    //{
+    //    SpawnMultiple(startGhostCount);
+    //}
     void InitializePool()
     {
         for (int i = 0; i < poolSize; i++)
@@ -43,6 +46,11 @@ public class GhostSpawner : MonoBehaviour
             ghost.SetActive(false); // Hide them initially
             ghostPool.Enqueue(ghost);
         }
+    }
+    public void StartSpawner()
+    {
+        gameStarted = true;
+        SpawnMultiple(startGhostCount);
     }
     public void SpawnMultiple(int count)
     {
@@ -68,9 +76,9 @@ public class GhostSpawner : MonoBehaviour
         ghostPool.Enqueue(ghost);
 
         // Auto-respawn logic
-        if (aliveGhosts.Count <= 2)
+        if (gameStarted && aliveGhosts.Count <= respawnThreshold)
         {
-            SpawnMultiple(8);
+            SpawnMultiple(respawnGhostCount);
         }
     }
     Vector3 GetRandomPositionAround(Transform player)
@@ -85,4 +93,5 @@ public class GhostSpawner : MonoBehaviour
 
         return pos;
     }
+
 }
