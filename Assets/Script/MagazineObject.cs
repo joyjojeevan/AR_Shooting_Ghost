@@ -11,7 +11,7 @@ public class MagazineObject : MonoBehaviour
     void Update()
     {
         //Spin
-        transform.Rotate(50 * Time.deltaTime, 100 * Time.deltaTime, 0);
+        UIManager.Instance.SpinRightToLeft();
     }
     //Do raycast
     //private void OnMouseDown()
@@ -38,6 +38,7 @@ public class MagazineObject : MonoBehaviour
         }
         gameObject.SetActive(false);
     }
+    //Check this *****
     private IEnumerator FlyToPlayer()
     {
         float duration = 0.3f; // Fast and snappy

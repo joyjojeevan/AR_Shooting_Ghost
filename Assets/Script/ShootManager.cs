@@ -18,16 +18,14 @@ public class ShootManager : MonoBehaviour
 
     [Header("Ammo Settings")]
     public int maxAmmo = 10;
-    private int currentAmmo;
+    internal int currentAmmo;
     public bool isReloading = false;
 
     [Header("Pool Settings")]
     public int bulletPoolSize = 15;
     private Queue<GameObject> bulletPool = new Queue<GameObject>();
 
-    [Header("UI References")]
-    public TextMeshProUGUI ammoText;  // Change to 'public Text' if using standard UI
-    public TextMeshProUGUI scoreText;
+
 
     internal int killedCount = 0;
 
@@ -40,7 +38,7 @@ public class ShootManager : MonoBehaviour
     void Start()
     {
         currentAmmo = maxAmmo;
-        UpdateUI();
+        UIManager.Instance.UpdateGameUI();
     }
     void InitializeBulletPool()
     {
@@ -62,13 +60,13 @@ public class ShootManager : MonoBehaviour
     {
         currentAmmo = maxAmmo;
         isReloading = false;
-        UpdateUI();
+        UIManager.Instance.UpdateGameUI();
         Debug.Log("Reloaded!");
     }
     void Shoot()
     {
         currentAmmo--;
-        UpdateUI();
+        UIManager.Instance.UpdateGameUI();
         Debug.Log("Ammo left: " + currentAmmo);
 
         Ray ray = mainCam.ViewportPointToRay( new Vector3(0.5f, 0.5f, 0));
@@ -188,18 +186,11 @@ public class ShootManager : MonoBehaviour
         Reload();
         magazine.SetActive(false);
     }
-    void UpdateUI()
-    {
-        if (ammoText != null)
-            ammoText.text = "Ammo: " + currentAmmo + " / " + maxAmmo;
 
-        if (scoreText != null)
-            scoreText.text = "Killed: " + killedCount;
-    }
     public void AddScore()
     {
         killedCount++;
-        UpdateUI();
+        UIManager.Instance.UpdateGameUI();
     }
     public int GetKilledCount()
     {

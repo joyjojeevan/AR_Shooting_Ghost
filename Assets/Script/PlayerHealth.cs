@@ -6,14 +6,13 @@ using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public int maxHealth = 10;
-    private int currentHealth;
+    public static PlayerHealth Instance;
+
+    internal int maxHealth = 10;
+    internal int currentHealth;
 
     [Header("UI")]
-    public TextMeshProUGUI healthText;
-    public Image healthBarFill;
-    public Image damageOverlay;
-    public GameObject gameOverPanel;
+    public UIManager damageOverlay;
 
     public bool isPracticeGhost = false;
 
@@ -23,11 +22,11 @@ public class PlayerHealth : MonoBehaviour
     void Start()
     {
         currentHealth = maxHealth;
-        UpdateHealthUI();
-        gameOverPanel.SetActive(false);
+        UIManager.Instance.UpdateHealthUI();
+        UIManager.Instance.gameOverPanel.SetActive(false);
 
         // overlay in begining Alpha = 0
-        if (damageOverlay != null) damageOverlay.color = new Color(1, 0, 0, 0);
+        if (damageOverlay != null) damageOverlay.FlashOverlay(Color.red , 0);
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -44,12 +43,12 @@ public class PlayerHealth : MonoBehaviour
         if (isInvulnerable) return;
 
         currentHealth -= damage;
-        UpdateHealthUI();
+        UIManager.Instance.UpdateHealthUI();
         StartCoroutine(BecomeInvulnerable());
 
         // Visual feedback
-        StopCoroutine(FlashDamageOverlay()); // Stop healing flash if taking damage
-        StartCoroutine(FlashDamageOverlay());
+        StopAllCoroutines(); // Stop healing flash if taking damage
+        UIManager.Instance.StartCoroutine(damageOverlay.FlashOverlay(Color.red));
 
         // Haptic feedback for mobile
         Handheld.Vibrate();
@@ -58,49 +57,6 @@ public class PlayerHealth : MonoBehaviour
         if (currentHealth <= 0)
         {
             GameOver();
-        }
-    }
-
-    void UpdateHealthUI()
-    {
-        if (healthText != null)
-            healthText.text = "HP: " + currentHealth + " / " + maxHealth;
-        if (healthBarFill != null)
-        {
-            healthBarFill.fillAmount = (float)currentHealth / maxHealth;
-            float hpPercent = (float)currentHealth / maxHealth;
-            if (hpPercent < 0.3f)
-                healthBarFill.color = Color.red;
-            else
-                healthBarFill.color = Color.green;
-        }
-    }
-
-    public IEnumerator FlashDamageOverlay()
-    {
-        // Quickly show red screen, then fade out
-        float intensity = 0.4f;
-        damageOverlay.color = new Color(1, 0, 0, 0.4f);
-
-        while (intensity > 0)
-        {
-            intensity -= Time.deltaTime;
-            damageOverlay.color = new Color(1, 0, 0, intensity);
-            yield return null;
-        }
-    }
-    public IEnumerator FlashHealingOverlay()
-    {
-        if (damageOverlay == null) yield break;
-
-        float intensity = 0.4f;
-        damageOverlay.color = new Color(0, 1, 0, intensity); // Green color
-        AudioManager.Instance.PlaySound(SoundType.Claim);
-        while (intensity > 0)
-        {
-            intensity -= Time.deltaTime;
-            damageOverlay.color = new Color(0, 1, 0, intensity);
-            yield return null;
         }
     }
     public IEnumerator BecomeInvulnerable()
@@ -124,7 +80,7 @@ public class PlayerHealth : MonoBehaviour
             // Maybe play a "New High Score" sound or show a special UI effect
         }
         Debug.Log("Game Over!");
-        gameOverPanel.SetActive(true);
+        UIManager.Instance.gameOverPanel.SetActive(true);
         Time.timeScale = 0; // Pause 
         AudioManager.Instance.PlaySound(SoundType.GameOver);
     }
@@ -147,15 +103,43 @@ public class PlayerHealth : MonoBehaviour
     public void ResetHealth()
     {
         currentHealth = maxHealth;
-        UpdateHealthUI();
+        UIManager.Instance.UpdateHealthUI();
 
         // Stop red and start a green one
         StopAllCoroutines();
-        StartCoroutine(FlashHealingOverlay());
+        StartCoroutine(damageOverlay.FlashOverlay(Color.green));
 
         Debug.Log("Player Health has been refilled to: " + currentHealth);
     }
 }
+
+//public IEnumerator FlashDamageOverlay()
+//{
+//    // Quickly show red screen, then fade out
+//    float intensity = 0.4f;
+//    damageOverlay.color = new Color(1, 0, 0, 0.4f);
+
+//    while (intensity > 0)
+//    {
+//        intensity -= Time.deltaTime;
+//        damageOverlay.color = new Color(1, 0, 0, intensity);
+//        yield return null;
+//    }
+//}
+//public IEnumerator FlashHealingOverlay()
+//{
+//    if (damageOverlay == null) yield break;
+
+//    float intensity = 0.4f;
+//    damageOverlay.color = new Color(0, 1, 0, intensity); // Green color
+//    AudioManager.Instance.PlaySound(SoundType.Claim);
+//    while (intensity > 0)
+//    {
+//        intensity -= Time.deltaTime;
+//        damageOverlay.color = new Color(0, 1, 0, intensity);
+//        yield return null;
+//    }
+//}
 /*
  ****Time.timeScale
  Time.timeScale controls how fast time runs in your game.

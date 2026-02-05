@@ -13,12 +13,6 @@ public class StoryManager : MonoBehaviour
     [Header("Progress")]
     public int giftsFound = 0;
 
-    [Header("Reusable Popup UI")]
-    public GameObject popupPanel;
-    public Image popupIcon;          
-    public TextMeshProUGUI popupTitle;
-    public TextMeshProUGUI popupBody;
-
     [Header("Icons")]
     public Sprite boxIcon;            
     public Sprite giftIcon;           
@@ -27,36 +21,17 @@ public class StoryManager : MonoBehaviour
     {
         Instance = this;
     }
-
     void Start()
     {
         investigationBox.SetActive(true);
         giftPrefab.SetActive(false);
         instructionText.text = "Find the Investigation Box to begin.";
     }
-    public void OpenUniversalPopup(Sprite icon, string title, string message)
-    {
-        popupIcon.sprite = icon;
-        popupTitle.text = title;
-        popupBody.text = message;
-
-        popupPanel.SetActive(true);
-        Time.timeScale = 0;
-
-        AudioManager.Instance.PlaySound(SoundType.Claim);
-    }
-
-    public void ClosePopup()
-    {
-        Time.timeScale = 1;
-        popupPanel.SetActive(false);
-    }
-
     public void OnBoxTouched()
     {
         Debug.Log("Box Touched!");
 
-        OpenUniversalPopup(boxIcon, "INVESTIGATION BOX", "Scanning complete. Try to find Key for Open this . Find the first Gift.");
+        UIManager.Instance.OpenUniversalPopup(boxIcon, "INVESTIGATION BOX", "Scanning complete. Try to find Key for Open this . Find the first Gift.");
         investigationBox.SetActive(false);
         instructionText.text = "Box Secure. Spawning the Gift...";
 
@@ -82,7 +57,7 @@ public class StoryManager : MonoBehaviour
     public void OnGiftFound()
     {
         giftsFound++;
-        OpenUniversalPopup(giftIcon, "GIFT", "You have stabilized a reality anchor. Warning: Entity activity increasing.");
+        UIManager.Instance.OpenUniversalPopup(giftIcon, "GIFT", "You have stabilized a reality anchor. Warning: Entity activity increasing.");
 
         if (instructionText != null)
         {

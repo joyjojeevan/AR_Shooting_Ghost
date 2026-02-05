@@ -3,11 +3,12 @@ using System.Collections;
 
 public class LifeBox : MonoBehaviour
 {
-    public float rotationSpeed = 100f;
+   
 
     void Update()
     {
-        transform.Rotate(0, rotationSpeed * Time.deltaTime, 0);
+        //transform.Rotate(0, rotationSpeed * Time.deltaTime, 0);
+        UIManager.Instance.SpinRightToLeft();
     }
 
     private void OnTriggerEnter(Collider other)
