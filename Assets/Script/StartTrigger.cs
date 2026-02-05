@@ -19,8 +19,6 @@ public class StartTrigger : MonoBehaviour
     {
         instructionText.text = "Signal located. You are in the Anomaly Zone. Find 'The Gift' to stabilize reality.";
 
-        //firstPracticeGhost.SetActive(true);
-
         gameObject.SetActive(false);
 
         AudioManager.Instance.PlaySound(SoundType.Claim);

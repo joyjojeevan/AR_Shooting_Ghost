@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StoryManager : MonoBehaviour
 {
@@ -11,6 +12,17 @@ public class StoryManager : MonoBehaviour
 
     [Header("Progress")]
     public int giftsFound = 0;
+
+    [Header("Reusable Popup UI")]
+    public GameObject popupPanel;
+    public Image popupIcon;          
+    public TextMeshProUGUI popupTitle;
+    public TextMeshProUGUI popupBody;
+
+    [Header("Icons")]
+    public Sprite boxIcon;            
+    public Sprite giftIcon;           
+    public Sprite mysteryIcon;        
     void Awake()
     {
         Instance = this;
@@ -19,25 +31,46 @@ public class StoryManager : MonoBehaviour
     void Start()
     {
         investigationBox.SetActive(true);
-        if (giftPrefab != null) giftPrefab.SetActive(false);
+        giftPrefab.SetActive(false);
         instructionText.text = "Find the Investigation Box to begin.";
     }
+    public void OpenUniversalPopup(Sprite icon, string title, string message)
+    {
+        popupIcon.sprite = icon;
+        popupTitle.text = title;
+        popupBody.text = message;
 
-    // This is called by your StartTrigger script
+        popupPanel.SetActive(true);
+        Time.timeScale = 0;
+
+        AudioManager.Instance.PlaySound(SoundType.Claim);
+    }
+
+    public void ClosePopup()
+    {
+        Time.timeScale = 1;
+        popupPanel.SetActive(false);
+    }
+
     public void OnBoxTouched()
     {
-        Debug.Log("Step 1: Box Touched!");
+        Debug.Log("Box Touched!");
+
+        OpenUniversalPopup(boxIcon, "INVESTIGATION BOX", "Scanning complete. Try to find Key for Open this . Find the first Gift.");
         investigationBox.SetActive(false);
         instructionText.text = "Box Secure. Spawning the Gift...";
 
-        // Trigger the gift spawn
         SpawnGift();
     }
 
     public void SpawnGift()
     {
-        Vector3 spawnPos = Camera.main.transform.position + (Camera.main.transform.forward * 2.5f);
-        spawnPos.y = Camera.main.transform.position.y;
+        Vector2 randomPoint = Random.insideUnitCircle.normalized;
+
+        float randomDistance = Random.Range(2.0f, 5.0f);
+        Vector3 spawnOffset = new Vector3(randomPoint.x, 0, randomPoint.y) * randomDistance;
+        Vector3 spawnPos = Camera.main.transform.position + spawnOffset;
+        spawnPos.y = Camera.main.transform.position.y - 0.2f;
 
         GameObject newGift = Instantiate(giftPrefab, spawnPos, Quaternion.identity);
         newGift.SetActive(true);
@@ -48,13 +81,13 @@ public class StoryManager : MonoBehaviour
     }
     public void OnGiftFound()
     {
-        giftsFound++; 
+        giftsFound++;
+        OpenUniversalPopup(giftIcon, "GIFT", "You have stabilized a reality anchor. Warning: Entity activity increasing.");
 
         if (instructionText != null)
         {
             instructionText.text = "Echo secured. The anomaly is spreading! SURVIVE.";
         }
-
         if (GhostSpawner.instance != null)
         {
             GhostSpawner.instance.gameStarted = true;
