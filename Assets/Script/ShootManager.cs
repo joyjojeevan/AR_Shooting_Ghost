@@ -190,6 +190,7 @@ public class ShootManager : MonoBehaviour
     public void AddScore()
     {
         killedCount++;
+        LevelManager.Instance.AddKill();
         UIManager.Instance.UpdateGameUI();
     }
     public int GetKilledCount()

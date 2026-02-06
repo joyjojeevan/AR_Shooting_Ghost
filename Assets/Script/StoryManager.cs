@@ -57,25 +57,16 @@ public class StoryManager : MonoBehaviour
     public void OnGiftFound()
     {
         giftsFound++;
+
         UIManager.Instance.OpenUniversalPopup(giftIcon, "GIFT", "You have stabilized a reality anchor. Warning: Entity activity increasing.");
+        instructionText.text = "Echo secured. The anomaly is spreading! SURVIVE.";
 
-        if (instructionText != null)
-        {
-            instructionText.text = "Echo secured. The anomaly is spreading! SURVIVE.";
-        }
-        if (GhostSpawner.instance != null)
-        {
-            GhostSpawner.instance.gameStarted = true;
+        GhostSpawner.instance.gameStarted = true;
+        GhostSpawner.instance.SpawnMultiple(3 + giftsFound);
 
-            GhostSpawner.instance.SpawnMultiple(3 + giftsFound);
+        Debug.Log("Ghosts Spawned! Game officially started.");
+        LevelManager.Instance.AddGift();
 
-            Debug.Log("Ghosts Spawned! Game officially started.");
-        }
-        else
-        {
-            Debug.LogError("GhostSpawner instance not found!");
-        }
-
-         Invoke("SpawnGift", 50.0f);
+        Invoke("SpawnGift", 50.0f);
     }
 }
