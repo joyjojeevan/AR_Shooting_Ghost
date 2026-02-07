@@ -123,7 +123,7 @@ public class ShootManager : MonoBehaviour
             activeMagazine.tag = "Reload";
         }
 
-        float distance = Random.Range(3f, 6f);
+        float distance = Random.Range(2f, 4f);
         float angle = Random.Range(0, 360) * Mathf.Deg2Rad;
 
         float x = Mathf.Cos(angle) * distance;

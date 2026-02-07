@@ -42,7 +42,7 @@ public class StoryManager : MonoBehaviour
     {
         Vector2 randomPoint = Random.insideUnitCircle.normalized;
 
-        float randomDistance = Random.Range(2.0f, 5.0f);
+        float randomDistance = Random.Range(4f, 6f);
         Vector3 spawnOffset = new Vector3(randomPoint.x, 0, randomPoint.y) * randomDistance;
         Vector3 spawnPos = Camera.main.transform.position + spawnOffset;
         spawnPos.y = Camera.main.transform.position.y - 0.2f;

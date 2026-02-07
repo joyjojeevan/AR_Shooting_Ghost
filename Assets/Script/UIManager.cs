@@ -61,7 +61,8 @@ public class UIManager : MonoBehaviour
     #region Spin Right to Left
     public void SpinRightToLeft()
     {
-        transform.Rotate(50 * Time.deltaTime, 100 * Time.deltaTime, 0);
+        //transform.Rotate(50 * Time.deltaTime, 100 * Time.deltaTime, 0);
+        transform.Rotate(0, 0, rotationSpeed * Time.unscaledDeltaTime);
     }
     #endregion
     # region UpdateHealthUI
@@ -83,6 +84,7 @@ public class UIManager : MonoBehaviour
     #region FlashOverlay
     public IEnumerator FlashOverlay(Color flashColor, float startIntensity = 0.4f)
     {
+        damageOverlay.gameObject.SetActive(true);
         float intensity = startIntensity;
 
         // Set initial color with intensity
@@ -90,12 +92,13 @@ public class UIManager : MonoBehaviour
 
         while (intensity > 0)
         {
-            intensity -= Time.deltaTime;
+            intensity -= Time.unscaledDeltaTime * 1.5f;
 
-            damageOverlay.color = new Color(flashColor.r,flashColor.g,flashColor.b,intensity);
+            damageOverlay.color = new Color(flashColor.r,flashColor.g,flashColor.b,Mathf.Clamp01(intensity));
 
             yield return null;
         }
+        damageOverlay.color = new Color(flashColor.r, flashColor.g, flashColor.b, 0);
     }
     #endregion
 }

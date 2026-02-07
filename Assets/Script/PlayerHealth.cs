@@ -8,17 +8,22 @@ public class PlayerHealth : MonoBehaviour
 {
     public static PlayerHealth Instance;
 
-    internal int maxHealth = 10;
-    internal int currentHealth;
+    public int maxHealth = 10;
+    public int currentHealth;
 
     [Header("UI")]
-    public UIManager damageOverlay;
+    //public UIManager damageOverlay;
 
     public bool isPracticeGhost = false;
 
     private bool isInvulnerable = false;
     public float invulnerabilityDuration = 1.5f;
 
+    private void Awake()
+    {
+        // Set the instance as early as possible
+        Instance = this;
+    }
     void Start()
     {
         currentHealth = maxHealth;
@@ -26,8 +31,16 @@ public class PlayerHealth : MonoBehaviour
         UIManager.Instance.gameOverPanel.SetActive(false);
 
         // overlay in begining Alpha = 0
-        if (damageOverlay != null) damageOverlay.FlashOverlay(Color.red , 0);
+        UIManager.Instance.StartCoroutine(UIManager.Instance.FlashOverlay(Color.red, 0));
     }
+    //void Update()
+    //{
+    //    // Press 'T' to test damage manually
+    //    if (Input.GetKeyDown(KeyCode.T))
+    //    {
+    //        TakeDamage(1);
+    //    }
+    //}
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Ghost"))
@@ -40,6 +53,7 @@ public class PlayerHealth : MonoBehaviour
     }
     public void TakeDamage(int damage)
     {
+        Debug.Log("Hit detected! Current Invulnerable status: " + isInvulnerable);
         if (isInvulnerable) return;
 
         currentHealth -= damage;
@@ -47,8 +61,9 @@ public class PlayerHealth : MonoBehaviour
         StartCoroutine(BecomeInvulnerable());
 
         // Visual feedback
-        StopAllCoroutines(); // Stop healing flash if taking damage
-        UIManager.Instance.StartCoroutine(damageOverlay.FlashOverlay(Color.red));
+        //StopAllCoroutines(); // Stop healing flash if taking damage
+        //UIManager.Instance.StartCoroutine(damageOverlay.FlashOverlay(Color.red));
+        UIManager.Instance.StartCoroutine(UIManager.Instance.FlashOverlay(Color.red));
 
         // Haptic feedback for mobile
         Handheld.Vibrate();
@@ -65,7 +80,7 @@ public class PlayerHealth : MonoBehaviour
         // Optional: make your gun or HUD blink to show you are safe
         yield return new WaitForSeconds(invulnerabilityDuration);
         isInvulnerable = false;
-
+        Debug.Log("Player is now vulnerable again!");
     }
 
     void GameOver()
@@ -107,7 +122,7 @@ public class PlayerHealth : MonoBehaviour
 
         // Stop red and start a green one
         StopAllCoroutines();
-        StartCoroutine(damageOverlay.FlashOverlay(Color.green));
+        UIManager.Instance.StartCoroutine(UIManager.Instance.FlashOverlay(Color.green));
 
         Debug.Log("Player Health has been refilled to: " + currentHealth);
     }
