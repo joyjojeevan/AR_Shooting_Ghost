@@ -14,16 +14,14 @@ public class GiftObject : MonoBehaviour
         // Ensure your AR Camera is tagged "MainCamera"
         if (other.CompareTag("MainCamera"))
         {
-            if (StoryManager.Instance != null)
-            {
-                StoryManager.Instance.OnGiftFound();
+             StoryManager.Instance.OnGiftFound();
 
-                if (AudioManager.Instance != null)
-                    AudioManager.Instance.PlaySound(SoundType.Claim);
+             if (AudioManager.Instance != null)
+                 AudioManager.Instance.PlaySound(SoundType.Claim);
 
-                // Hide the gift until the next one spawns
-                gameObject.SetActive(false);
-            }
+             // Hide the gift until the next one spawns
+             gameObject.SetActive(false);
+            
         }
     }
 }

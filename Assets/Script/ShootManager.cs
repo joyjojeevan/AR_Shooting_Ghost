@@ -25,7 +25,8 @@ public class ShootManager : MonoBehaviour
     public int bulletPoolSize = 15;
     private Queue<GameObject> bulletPool = new Queue<GameObject>();
 
-
+    public Animator animator;
+    public ParticleSystem muzzleFlash;
 
     internal int killedCount = 0;
 
@@ -62,12 +63,16 @@ public class ShootManager : MonoBehaviour
         isReloading = false;
         UIManager.Instance.UpdateGameUI();
         Debug.Log("Reloaded!");
+        animator.SetTrigger("Reload");
     }
     void Shoot()
     {
         currentAmmo--;
         UIManager.Instance.UpdateGameUI();
         Debug.Log("Ammo left: " + currentAmmo);
+
+        animator.SetTrigger("Shoot");
+        muzzleFlash.Play();
 
         Ray ray = mainCam.ViewportPointToRay( new Vector3(0.5f, 0.5f, 0));
         // Draw a Ray  s

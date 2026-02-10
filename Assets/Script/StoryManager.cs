@@ -6,7 +6,7 @@ public class StoryManager : MonoBehaviour
 {
     public static StoryManager Instance;
 
-    public GameObject giftPrefab; // Drag your Gift Prefab/Object here
+    public GameObject giftPrefab; 
     public GameObject investigationBox;
     public TextMeshProUGUI instructionText;
 

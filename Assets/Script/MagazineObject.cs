@@ -27,15 +27,10 @@ public class MagazineObject : MonoBehaviour
     }
     private void CollectMe()
     {
-        if (ShootManager.instance != null)
-        {
-            ShootManager.instance.HandleReload(gameObject);
+        ShootManager.instance.HandleReload(gameObject);
+        AudioManager.Instance.PlaySound(SoundType.Claim);
 
-            if (AudioManager.Instance != null)
-                AudioManager.Instance.PlaySound(SoundType.Claim);
-
-            StartCoroutine(FlyToPlayer());
-        }
+        StartCoroutine(FlyToPlayer());
         gameObject.SetActive(false);
     }
     //Check this *****

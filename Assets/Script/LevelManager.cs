@@ -25,7 +25,6 @@ public class LevelManager : MonoBehaviour
         Instance = this;
         LoadProgress();
     }
-    //change to keys
     public void SaveProgress()
     {
         PlayerPrefs.SetInt(DataKeys.SAVED_LEVEL, currentLevel);

@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 using System.Collections;
 using UnityEngine.SceneManagement;
@@ -106,17 +105,17 @@ public class PlayerHealth : MonoBehaviour
     public void RestartGame()
     {
         Time.timeScale = 1; // Play
-        if (AudioManager.Instance != null)
-            AudioManager.Instance.StopAllSounds();
+        AudioManager.Instance.StopAllSounds();
 
-        SceneManager.LoadScene(1);
+        //SceneManager.LoadScene(1);
+        SceneManager.LoadSceneAsync(1);
     }
     public void GoMenu()
     {
-        if (AudioManager.Instance != null)
-            AudioManager.Instance.StopAllSounds();
+        AudioManager.Instance.StopAllSounds();
 
-        SceneManager.LoadScene(0);
+        //SceneManager.LoadScene(0);
+        SceneManager.LoadSceneAsync(0);
     }
     public void ResetHealth()
     {
