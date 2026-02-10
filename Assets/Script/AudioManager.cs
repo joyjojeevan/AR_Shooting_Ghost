@@ -37,6 +37,11 @@ public class AudioManager : MonoBehaviour
     {
         AudioClip clip = null;
 
+        if (PlayerPrefs.GetInt("SoundSetting", 1) == 0)
+        {
+            return; 
+        }
+
         switch (type)
         {
             case SoundType.GameOver:

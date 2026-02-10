@@ -24,6 +24,7 @@ public class UIManager : MonoBehaviour
     public GameObject gameOverPanel;
 
     public float rotationSpeed = 100f;
+    public float flashFadeSpeed = 1.5f;
 
     private void Awake()
     {
@@ -51,10 +52,8 @@ public class UIManager : MonoBehaviour
     #region Game UI
     public void UpdateGameUI()
     {
-        if (ammoText != null)
             ammoText.text = "Ammo: " + ShootManager.instance.currentAmmo + " / " + ShootManager.instance.maxAmmo;
 
-        if (scoreText != null)
             scoreText.text = "Killed: " + ShootManager.instance.killedCount;
     }
     #endregion
@@ -68,17 +67,15 @@ public class UIManager : MonoBehaviour
     # region UpdateHealthUI
     public void UpdateHealthUI()
     {
-        if (healthText != null)
-            healthText.text = "HP: " + PlayerHealth.Instance.currentHealth + " / " + PlayerHealth.Instance.maxHealth;
-        if (healthBarFill != null)
-        {
-            healthBarFill.fillAmount = (float)PlayerHealth.Instance.currentHealth / PlayerHealth.Instance.maxHealth;
-            float hpPercent = (float)PlayerHealth.Instance.currentHealth / PlayerHealth.Instance.maxHealth;
-            if (hpPercent < 0.3f)
-                healthBarFill.color = Color.red;
-            else
-                healthBarFill.color = Color.green;
-        }
+        healthText.text = "HP: " + PlayerHealth.Instance.currentHealth + " / " + PlayerHealth.Instance.maxHealth;
+
+        healthBarFill.fillAmount = (float)PlayerHealth.Instance.currentHealth / PlayerHealth.Instance.maxHealth;
+        float hpPercent = (float)PlayerHealth.Instance.currentHealth / PlayerHealth.Instance.maxHealth;
+        if (hpPercent < 0.3f)
+            healthBarFill.color = Color.red;
+        else
+            healthBarFill.color = Color.green;
+       
     }
     #endregion
     #region FlashOverlay
@@ -92,7 +89,7 @@ public class UIManager : MonoBehaviour
 
         while (intensity > 0)
         {
-            intensity -= Time.unscaledDeltaTime * 1.5f;
+            intensity -= Time.unscaledDeltaTime * flashFadeSpeed;
 
             damageOverlay.color = new Color(flashColor.r,flashColor.g,flashColor.b,Mathf.Clamp01(intensity));
 

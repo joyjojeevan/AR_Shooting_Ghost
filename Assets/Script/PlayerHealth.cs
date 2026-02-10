@@ -66,7 +66,10 @@ public class PlayerHealth : MonoBehaviour
         UIManager.Instance.StartCoroutine(UIManager.Instance.FlashOverlay(Color.red));
 
         // Haptic feedback for mobile
-        Handheld.Vibrate();
+        if (PlayerPrefs.GetInt("VibSetting", 1) == 1)
+        {
+            Handheld.Vibrate();
+        }
         AudioManager.Instance.PlaySound(SoundType.Hit);
 
         if (currentHealth <= 0)

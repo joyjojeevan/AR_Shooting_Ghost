@@ -26,8 +26,6 @@ public class GhostMovement : MonoBehaviour
 
     void Update()
     {
-        if (player == null) return;
-
         //Check distance to player
         float distToPlayer = Vector3.Distance(transform.position, player.position);
 
@@ -77,9 +75,8 @@ public class GhostMovement : MonoBehaviour
     void OnEnable()
     {
         timer = 0;
-
+        // Check
         if (player == null) player = Camera.main.transform;
-        if (player != null)
         {
             SetNewTargetPoint();
         }

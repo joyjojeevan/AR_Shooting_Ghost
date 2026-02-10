@@ -1,50 +1,53 @@
-using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class LevelRequirement
+public static class DataKeys
 {
-    public int levelNumber;
-    public int requiredGifts;
-    public int requiredKills;
-    public string levelName;
-    public float ghostSpeedMultiplier;
+    public const string SAVED_LEVEL = "SavedLevel";
+    public const string TOTAL_KILLS = "TotalKills";
+    public const string TOTAL_GIFTS = "TotalGifts";
 }
-
 public class LevelManager : MonoBehaviour
 {
     public static LevelManager Instance;
+
+    [Header("Data Source")]
+    public LevelData levelDatabase;
 
     [Header("Current Progress")]
     public int currentLevel = 1;
     public int totalKills = 0;
     public int totalGifts = 0;
 
-    [Header("Level Settings")]
-    public List<LevelRequirement> levels;
 
-    void Awake() => Instance = this;
 
-    // Call this from ShootManager when a ghost dies
-    public void AddKill()
+    void Awake()
     {
-        totalKills++;
-        CheckLevelUp();
+        Instance = this;
+        LoadProgress();
+    }
+    //change to keys
+    public void SaveProgress()
+    {
+        PlayerPrefs.SetInt(DataKeys.SAVED_LEVEL, currentLevel);
+        PlayerPrefs.SetInt(DataKeys.TOTAL_KILLS, totalKills);
+        PlayerPrefs.SetInt(DataKeys.TOTAL_GIFTS, totalGifts);
+        PlayerPrefs.Save(); 
+        Debug.Log("Progress Saved!");
     }
 
-    // Call this from StoryManager when a gift is touched
-    public void AddGift()
+    public void LoadProgress()
     {
-        totalGifts++;
-        CheckLevelUp();
+        currentLevel = PlayerPrefs.GetInt(DataKeys.SAVED_LEVEL, 1);
+        totalKills = PlayerPrefs.GetInt(DataKeys.TOTAL_KILLS, 0);
+        totalGifts = PlayerPrefs.GetInt(DataKeys.TOTAL_GIFTS, 0);
+        Debug.Log("Progress Loaded! Level: " + currentLevel);
     }
-
     private void CheckLevelUp()
     {
         // Check if there is a next level defined
-        if (currentLevel < levels.Count)
+        if (currentLevel < levelDatabase.levels.Count)
         {
-            LevelRequirement nextLevel = levels[currentLevel]; // levels[1] is actually Level 2
+            LevelRequirement nextLevel = levelDatabase.levels[currentLevel]; // levels[1] is actually Level 2
 
             if (totalGifts >= nextLevel.requiredGifts && totalKills >= nextLevel.requiredKills)
             {
@@ -56,18 +59,29 @@ public class LevelManager : MonoBehaviour
     private void LevelUp(LevelRequirement newLevel)
     {
         currentLevel = newLevel.levelNumber;
+        SaveProgress();
 
-        // Use your Universal Popup to tell the player!
-        UIManager.Instance.OpenUniversalPopup(
-            StoryManager.Instance.mysteryIcon,
-            "LEVEL UP: " + newLevel.levelName,
-            $"You have reached Level {currentLevel}! The ghosts are getting faster..."
-        );
+        // set popup properly
+        //UIManager.Instance.OpenUniversalPopup(
+        //    StoryManager.Instance.mysteryIcon,
+        //    "LEVEL UP: " + newLevel.levelName,
+        //    $"You have reached Level {currentLevel}! The ghosts are getting faster..."
+        //);
 
-        // Make ghosts harder
+        //TODO : Make ghosts harder
         if (GhostSpawner.instance != null)
         {
         
         }
+    }
+    public void AddKill()
+    {
+        totalKills++;
+        CheckLevelUp();
+    }
+    public void AddGift()
+    {
+        totalGifts++;
+        CheckLevelUp();
     }
 }
