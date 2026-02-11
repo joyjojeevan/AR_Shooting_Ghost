@@ -10,7 +10,7 @@ public class ShootManager : MonoBehaviour
 
     public GameObject bulletPrefab;
     public Transform firePoint;
-    public float bulletSpeed = 15f;
+    public float bulletSpeed = 25f;
     private float bulletMoveDis = 20f;
     public GameObject magazinePrefab;
     public GameObject activeMagazine;
@@ -41,6 +41,15 @@ public class ShootManager : MonoBehaviour
         currentAmmo = maxAmmo;
         UIManager.Instance.UpdateGameUI();
     }
+    //void Update()
+    //{
+    //    if (Time.timeScale == 0) return;
+
+    //    if (Input.GetMouseButtonDown(0))
+    //    {
+    //        Shoot();
+    //    }
+    //}
     void InitializeBulletPool()
     {
         for (int i = 0; i < bulletPoolSize; i++)

@@ -19,7 +19,7 @@ public class LifeBoxManager : MonoBehaviour
     void Start()
     {
         // late few second
-        Invoke("SpawnNewBox", 15.0f);
+        Invoke("SpawnNewBox", 40f);
     }
 
 

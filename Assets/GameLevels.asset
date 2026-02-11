@@ -14,17 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levels:
   - levelNumber: 0
-    requiredGifts: 0
-    requiredKills: 0
-    levelName: 
-    ghostSpeedMultiplier: 0
-  - levelNumber: 0
-    requiredGifts: 0
-    requiredKills: 0
-    levelName: 
-    ghostSpeedMultiplier: 0
-  - levelNumber: 0
-    requiredGifts: 0
-    requiredKills: 0
-    levelName: 
-    ghostSpeedMultiplier: 0
+    requiredGifts: 5
+    requiredKills: 50
+    levelName: Level1
+    ghostSpeedMultiplier: 20
+  - levelNumber: 1
+    requiredGifts: 15
+    requiredKills: 150
+    levelName: Level2
+    ghostSpeedMultiplier: 30
+  - levelNumber: 2
+    requiredGifts: 30
+    requiredKills: 300
+    levelName: Level3
+    ghostSpeedMultiplier: 40

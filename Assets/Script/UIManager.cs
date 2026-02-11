@@ -23,6 +23,9 @@ public class UIManager : MonoBehaviour
     public Image damageOverlay;
     public GameObject gameOverPanel;
 
+    [Header("Pause Menu")]
+    public GameObject pausePanel;
+
     public float rotationSpeed = 100f;
     public float flashFadeSpeed = 1.5f;
 
@@ -96,6 +99,21 @@ public class UIManager : MonoBehaviour
             yield return null;
         }
         damageOverlay.color = new Color(flashColor.r, flashColor.g, flashColor.b, 0);
+    }
+    #endregion
+    #region PauseAndPlay
+    public void PressPause()
+    {
+        Time.timeScale = 0;
+
+        pausePanel.SetActive(true); 
+    }
+
+    public void PressPlay()
+    {
+        Time.timeScale = 1;
+
+        pausePanel.SetActive(false);
     }
     #endregion
 }
