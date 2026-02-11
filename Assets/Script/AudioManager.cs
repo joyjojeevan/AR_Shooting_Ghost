@@ -4,6 +4,7 @@ public enum SoundType
     GameOver,
     Hit,
     Fire,
+    Reload,
     Kill,
     Claim
 }
@@ -17,6 +18,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip FireSound;
     public AudioClip KilledSound;
     public AudioClip ClaimSound;
+    public AudioClip ReloadSound;
 
     private AudioSource audioSource;
     private void Awake()
@@ -52,6 +54,9 @@ public class AudioManager : MonoBehaviour
                 break;
             case SoundType.Fire:
                 clip = FireSound;
+                break;
+            case SoundType.Reload:
+                clip = ReloadSound;
                 break;
             case SoundType.Kill:
                 clip = KilledSound;

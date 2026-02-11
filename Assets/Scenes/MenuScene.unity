@@ -3078,6 +3078,7 @@ MonoBehaviour:
   FireSound: {fileID: 8300000, guid: 91a1854e59a3be2448290913c55162f7, type: 3}
   KilledSound: {fileID: 8300000, guid: eeb10a6bd30b28e40bc7ee4b1aff07ed, type: 3}
   ClaimSound: {fileID: 8300000, guid: 52a525f357a77f1499798c74980d17b2, type: 3}
+  ReloadSound: {fileID: 8300000, guid: 536fecfea263a9e489600f6fcefe7f9b, type: 3}
 --- !u!82 &1349387835
 AudioSource:
   m_ObjectHideFlags: 0

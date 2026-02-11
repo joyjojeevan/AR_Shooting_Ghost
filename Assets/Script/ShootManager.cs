@@ -54,6 +54,8 @@ public class ShootManager : MonoBehaviour
     {
         if (!isReloading && currentAmmo > 0)
         {
+            animator.SetTrigger("Shoot");
+            muzzleFlash.Play();
             Shoot();
         }
     }
@@ -63,16 +65,12 @@ public class ShootManager : MonoBehaviour
         isReloading = false;
         UIManager.Instance.UpdateGameUI();
         Debug.Log("Reloaded!");
-        animator.SetTrigger("Reload");
     }
     void Shoot()
     {
         currentAmmo--;
         UIManager.Instance.UpdateGameUI();
         Debug.Log("Ammo left: " + currentAmmo);
-
-        animator.SetTrigger("Shoot");
-        muzzleFlash.Play();
 
         Ray ray = mainCam.ViewportPointToRay( new Vector3(0.5f, 0.5f, 0));
         // Draw a Ray  s
@@ -188,8 +186,16 @@ public class ShootManager : MonoBehaviour
     }
     public void HandleReload(GameObject magazine)
     {
+        animator.SetTrigger("Reload");
         Reload();
+        StartCoroutine(ReloadSoundDelay());
+
         magazine.SetActive(false);
+    }
+    IEnumerator ReloadSoundDelay()
+    {
+        yield return new WaitForSeconds(2f);
+        AudioManager.Instance.PlaySound(SoundType.Reload);
     }
 
     public void AddScore()

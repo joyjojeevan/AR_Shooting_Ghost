@@ -4883,16 +4883,28 @@ PrefabInstance:
       value: MuzzleFlash
       objectReference: {fileID: 0}
     - target: {fileID: 6831687595170817295, guid: d8bc0864d56504c46bba7c91883598ca, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5288998
+      objectReference: {fileID: 0}
+    - target: {fileID: 6831687595170817295, guid: d8bc0864d56504c46bba7c91883598ca, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5288998
+      objectReference: {fileID: 0}
+    - target: {fileID: 6831687595170817295, guid: d8bc0864d56504c46bba7c91883598ca, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5288998
+      objectReference: {fileID: 0}
+    - target: {fileID: 6831687595170817295, guid: d8bc0864d56504c46bba7c91883598ca, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.04
       objectReference: {fileID: 0}
     - target: {fileID: 6831687595170817295, guid: d8bc0864d56504c46bba7c91883598ca, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.03
       objectReference: {fileID: 0}
     - target: {fileID: 6831687595170817295, guid: d8bc0864d56504c46bba7c91883598ca, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.0154
       objectReference: {fileID: 0}
     - target: {fileID: 6831687595170817295, guid: d8bc0864d56504c46bba7c91883598ca, type: 3}
       propertyPath: m_LocalRotation.w
