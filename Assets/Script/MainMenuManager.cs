@@ -3,39 +3,31 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.UI;
 
-public static class SaveKeys
-{
-    public const string HIGH_SCORE = "HighScore";
-    public const string PLAYER_NAME = "PlayerName";
-    public const string SOUND_SET = "SoundSetting";
-    public const string VIBRAT_SET = "VibSetting";
-}
-
 public class MainMenuManager : MonoBehaviour
 {
     [Header("UI Text")]
-    public TextMeshProUGUI menuHighScoreText;
-    public TMP_InputField nameInputField;
-    public TextMeshProUGUI profileName;
+    [SerializeField] private TextMeshProUGUI menuHighScoreText;
+    [SerializeField] private TMP_InputField nameInputField;
+    [SerializeField] private TextMeshProUGUI profileName;
 
     [Header("Settings UI")]
-    public GameObject instructionPanel;
-    public Toggle soundToggle;
-    public Toggle vibrationToggle;
+    [SerializeField] private GameObject instructionPanel;
+    [SerializeField] private Toggle soundToggle;
+    [SerializeField] private Toggle vibrationToggle;
     void Start()
     {
         //high score
-        int highScore = PlayerPrefs.GetInt(SaveKeys.HIGH_SCORE, 0);
+        int highScore = PlayerPrefs.GetInt(DataManager.HIGH_SCORE, 0);
         menuHighScoreText.text = "BEST RECORD: " + highScore;
         //Player name
-        string savedName = PlayerPrefs.GetString(SaveKeys.PLAYER_NAME, "Agent");
+        string savedName = PlayerPrefs.GetString(DataManager.PLAYER_NAME, "Agent");
 
-        nameInputField.text = PlayerPrefs.GetString(SaveKeys.PLAYER_NAME, "Agent");
+        nameInputField.text = PlayerPrefs.GetString(DataManager.PLAYER_NAME, "Agent");
         profileName.text =savedName.ToUpper();
 
         //Toggle
-        bool soundOn = PlayerPrefs.GetInt(SaveKeys.SOUND_SET, 1) == 1;
-        bool vibOn = PlayerPrefs.GetInt(SaveKeys.VIBRAT_SET, 1) == 1;
+        bool soundOn = PlayerPrefs.GetInt(DataManager.SOUND_SET, 1) == 1;
+        bool vibOn = PlayerPrefs.GetInt(DataManager.VIBRAT_SET, 1) == 1;
 
         soundToggle.isOn = soundOn;
         vibrationToggle.isOn = vibOn;
@@ -69,7 +61,7 @@ public class MainMenuManager : MonoBehaviour
     public void SaveName(string inputName)
     {
         if (string.IsNullOrEmpty(inputName)) inputName = "Agent";
-        PlayerPrefs.SetString(SaveKeys.PLAYER_NAME, inputName);
+        PlayerPrefs.SetString(DataManager.PLAYER_NAME, inputName);
         //PlayerPrefs.Save();
 
         UpdateProfileNameUI(inputName);
@@ -77,7 +69,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void ToggleSound(bool isOn)
     {
-        PlayerPrefs.SetInt(SaveKeys.SOUND_SET, isOn ? 1 : 0);
+        PlayerPrefs.SetInt(DataManager.SOUND_SET, isOn ? 1 : 0);
 
         AudioListener.pause = !isOn;
         AudioListener.volume = isOn ? 1f : 0f;
@@ -85,7 +77,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void ToggleVibration(bool isOn)
     {
-        PlayerPrefs.SetInt(SaveKeys.VIBRAT_SET, isOn ? 1 : 0);
+        PlayerPrefs.SetInt(DataManager.VIBRAT_SET, isOn ? 1 : 0);
         //PlayerPrefs.Save();
     }
     #endregion

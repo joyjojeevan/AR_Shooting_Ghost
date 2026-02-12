@@ -5,13 +5,12 @@ public class GhostMovement : MonoBehaviour
     public Transform player;
 
     [Header("Movement Settings")]
-    public float moveSpeed = 1.5f;        
-    public float rotationSpeed = 5.0f;
-    public float stopDistance = 1.2f;    
+    private float moveSpeed = 1.5f;        
+    private float rotationSpeed = 5.0f;
+    private float stopDistance = 1.2f;    
 
     [Header("Area Settings")]
-    public float roamRadius = 5f;
-    public float heightOffset = 1.2f;
+    private float roamRadius = 5f;
 
     private Vector3 targetPoint;
     private float timer;

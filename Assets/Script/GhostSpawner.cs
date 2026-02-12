@@ -8,18 +8,18 @@ public class GhostSpawner : MonoBehaviour
     public GameObject ghostPrefab;
 
     [Header("Story Control")]
-    public bool gameStarted = false;
+    internal bool gameStarted = false;
 
-    public int startGhostCount = 10;
-    public int respawnGhostCount = 8;
-    public int respawnThreshold = 2;
+    private int startGhostCount = 10;
+    private int respawnGhostCount = 8;
+    private int respawnThreshold = 2;
 
-    public float spawnRadius = 5f;   
-    public float minHeight = 0.5f;
-    public float maxHeight = 1.5f;
+    private float minHeight = 0.5f;
+    private float maxHeight = 1.5f;
 
     [Header("Pool Settings")]
-    public int poolSize = 20;
+    private int poolSize = 20;
+
     private Queue<GameObject> ghostPool = new Queue<GameObject>();
     
     internal List<GameObject> aliveGhosts = new List<GameObject>();
@@ -34,10 +34,6 @@ public class GhostSpawner : MonoBehaviour
         else
             Destroy(gameObject);
     }
-    //void Start()
-    //{
-    //    SpawnMultiple(startGhostCount);
-    //}
     void InitializePool()
     {
         for (int i = 0; i < poolSize; i++)

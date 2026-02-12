@@ -1,9 +1,9 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
 public class CollectableItem : MonoBehaviour
 {
-    public float rotationSpeed = 100f;
+    [SerializeField] private float rotationSpeed = 100f;
     private bool isCollected = false;
 
     void Update()
@@ -50,9 +50,9 @@ public class CollectableItem : MonoBehaviour
 }
 
 /*
-One Master script ? handles common behavior
-Small specific scripts ? handle unique logic
-Interface ? works like a �label�
+One Master script → handles common behavior
+Small specific scripts → handle unique logic
+Interface → works like a “label”
 
 itemLogic.Collect();
     This runs:
@@ -60,7 +60,7 @@ itemLogic.Collect();
         Magazine Collect()
         Gift Collect()
     Depending on which object this is.
-    Master script doesn�t care what type it is.
+    Master script doesn’t care what type it is.
 This is called:
-    ?? Polymorphism
+    🔥 Polymorphism
  */

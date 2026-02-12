@@ -6,17 +6,17 @@ public class StoryManager : MonoBehaviour
 {
     public static StoryManager Instance;
 
-    public GameObject giftPrefab; 
-    public GameObject investigationBox;
-    public TextMeshProUGUI instructionText;
+    [SerializeField] private GameObject giftPrefab;
+    [SerializeField] private GameObject investigationBox;
+    [SerializeField] private TextMeshProUGUI instructionText;
 
     [Header("Progress")]
-    public int giftsFound = 0;
+    private int giftsFound = 0;
 
     [Header("Icons")]
-    public Sprite boxIcon;            
-    public Sprite giftIcon;           
-    public Sprite mysteryIcon;        
+    [SerializeField] private Sprite boxIcon;
+    [SerializeField] private Sprite giftIcon;           
+    [SerializeField] private Sprite mysteryIcon;        
     void Awake()
     {
         Instance = this;

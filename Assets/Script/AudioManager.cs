@@ -13,12 +13,12 @@ public class AudioManager : MonoBehaviour
     public static AudioManager Instance;
 
     [Header("Sound Effects")]
-    public AudioClip GameOverSound;
-    public AudioClip HitSound;
-    public AudioClip FireSound;
-    public AudioClip KilledSound;
-    public AudioClip ClaimSound;
-    public AudioClip ReloadSound;
+    [SerializeField] private AudioClip GameOverSound;
+    [SerializeField] private AudioClip HitSound;
+    [SerializeField] private AudioClip FireSound;
+    [SerializeField] private AudioClip KilledSound;
+    [SerializeField] private AudioClip ClaimSound;
+    [SerializeField] private AudioClip ReloadSound;
 
     private AudioSource audioSource;
     private void Awake()

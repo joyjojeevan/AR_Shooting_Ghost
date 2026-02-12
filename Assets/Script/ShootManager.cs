@@ -8,25 +8,25 @@ public class ShootManager : MonoBehaviour
 {
     public static ShootManager instance;
 
-    public GameObject bulletPrefab;
-    public Transform firePoint;
-    public float bulletSpeed = 25f;
+    [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private Transform firePoint;
+    private float bulletSpeed = 25f;
     private float bulletMoveDis = 20f;
-    public GameObject magazinePrefab;
+    [SerializeField] private GameObject magazinePrefab;
     public GameObject activeMagazine;
     private Camera mainCam;
 
     [Header("Ammo Settings")]
-    public int maxAmmo = 10;
+    internal int maxAmmo = 10;
     internal int currentAmmo;
-    public bool isReloading = false;
+    private bool isReloading = false;
 
     [Header("Pool Settings")]
-    public int bulletPoolSize = 15;
+    private int bulletPoolSize = 15;
     private Queue<GameObject> bulletPool = new Queue<GameObject>();
 
-    public Animator animator;
-    public ParticleSystem muzzleFlash;
+    [SerializeField] private Animator animator;
+    [SerializeField] private ParticleSystem muzzleFlash;
 
     internal int killedCount = 0;
 
@@ -41,15 +41,6 @@ public class ShootManager : MonoBehaviour
         currentAmmo = maxAmmo;
         UIManager.Instance.UpdateGameUI();
     }
-    //void Update()
-    //{
-    //    if (Time.timeScale == 0) return;
-
-    //    if (Input.GetMouseButtonDown(0))
-    //    {
-    //        Shoot();
-    //    }
-    //}
     void InitializeBulletPool()
     {
         for (int i = 0; i < bulletPoolSize; i++)
@@ -96,8 +87,6 @@ public class ShootManager : MonoBehaviour
             if (hit.collider.CompareTag("Reload"))
             {
                 HandleReload(hit.collider.gameObject);
-                //hit.collider.gameObject.SetActive(false);
-                //AudioManager.Instance.PlaySound(SoundType.Claim);
                 return;
             }
             if (hit.collider.CompareTag("Ghost"))
@@ -217,13 +206,6 @@ public class ShootManager : MonoBehaviour
     {
         return killedCount;
     }
-    //private void OnDisable() // Triggered when ReturnToPool or SetActive(false) is called
-    //{
-    //    if (StoryManager.Instance != null)
-    //    {
-    //        StoryManager.Instance.StartMainGame();
-    //    }
-    //}
 }
 
 /* Raycast = Checking if that ray hits something

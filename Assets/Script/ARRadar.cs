@@ -4,19 +4,17 @@ using UnityEngine.UI;
 
 public class ARRadar : MonoBehaviour
 {
-    public RectTransform radarRect; // The Radar Background
-    public GameObject ghostDotPrefab;
-    public float mapScale = 20f;
+    [SerializeField] private RectTransform radarRect; // The Radar Background
+    [SerializeField] private GameObject ghostDotPrefab;
+    private float mapScale = 20f;
 
     [Header("Pickups")]
-    public ShootManager shootManager;
-    public Image magazineDotUI;
-    public Image lifeBoxDotUI;
+    [SerializeField] private ShootManager shootManager;
+    [SerializeField] private Image magazineDotUI;
+    [SerializeField] private Image lifeBoxDotUI;
 
     private float radarRadius;
-
     private Queue<RectTransform> dotPool = new Queue<RectTransform>();
-
     private Dictionary<GameObject, RectTransform> ghostDots = new Dictionary<GameObject, RectTransform>();
 
     void Start()

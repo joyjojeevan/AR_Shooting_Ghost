@@ -8,26 +8,25 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance;
 
     [Header("Reusable Popup UI")]
-    public GameObject popupPanel;
-    public Image popupIcon;
-    public TextMeshProUGUI popupTitle;
-    public TextMeshProUGUI popupBody;
+    [SerializeField] private GameObject popupPanel;
+    [SerializeField] private Image popupIcon;
+    [SerializeField] private TextMeshProUGUI popupTitle;
+    [SerializeField] private TextMeshProUGUI popupBody;
 
     [Header("UI References")]
-    public TextMeshProUGUI ammoText;  
-    public TextMeshProUGUI scoreText;
+    [SerializeField] private TextMeshProUGUI ammoText;
+    [SerializeField] private TextMeshProUGUI scoreText;
 
     [Header("Health UI")]
-    public TextMeshProUGUI healthText;
-    public Image healthBarFill;
-    public Image damageOverlay;
-    public GameObject gameOverPanel;
+    [SerializeField] private TextMeshProUGUI healthText;
+    [SerializeField] private Image healthBarFill;
+    [SerializeField] private Image damageOverlay;
+    [SerializeField] internal GameObject gameOverPanel;
 
     [Header("Pause Menu")]
-    public GameObject pausePanel;
+    [SerializeField] private GameObject pausePanel;
 
-    public float rotationSpeed = 100f;
-    public float flashFadeSpeed = 1.5f;
+    private float flashFadeSpeed = 1.5f;
 
     private void Awake()
     {
@@ -59,13 +58,6 @@ public class UIManager : MonoBehaviour
 
             scoreText.text = "Killed: " + ShootManager.instance.killedCount;
     }
-    #endregion
-    #region Spin Right to Left
-    //public void SpinRightToLeft()
-    //{
-    //    //transform.Rotate(50 * Time.deltaTime, 100 * Time.deltaTime, 0);
-    //    transform.Rotate(0, 0, rotationSpeed * Time.unscaledDeltaTime);
-    //}
     #endregion
     # region UpdateHealthUI
     public void UpdateHealthUI()

@@ -1,26 +1,30 @@
 using UnityEngine;
 
-public static class DataKeys
+public static class DataManager
 {
     public const string SAVED_LEVEL = "SavedLevel";
     public const string TOTAL_KILLS = "TotalKills";
     public const string TOTAL_GIFTS = "TotalGifts";
+    public const string HIGH_SCORE = "HighScore";
+    public const string PLAYER_NAME = "PlayerName";
+    public const string SOUND_SET = "SoundSetting";
+    public const string VIBRAT_SET = "VibSetting";
 }
 public class LevelManager : MonoBehaviour
 {
     public static LevelManager Instance;
 
     [Header("Data Source")]
-    public LevelData levelDatabase;
+    [SerializeField] private LevelData levelDatabase;
 
     [Header("Current Progress")]
-    public int currentLevel = 1;
-    public int totalKills = 0;
-    public int totalGifts = 0;
+    private int currentLevel = 1;
+    private int totalKills = 0;
+    private int totalGifts = 0;
 
     [Header("Shield Spawning")]
-    public GameObject shieldPrefab;
-    public float shieldSpawnChance = 0.1f;
+    [SerializeField] private GameObject shieldPrefab;
+    private float shieldSpawnChance = 0.1f;
 
     void Awake()
     {
@@ -29,18 +33,18 @@ public class LevelManager : MonoBehaviour
     }
     public void SaveProgress()
     {
-        PlayerPrefs.SetInt(DataKeys.SAVED_LEVEL, currentLevel);
-        PlayerPrefs.SetInt(DataKeys.TOTAL_KILLS, totalKills);
-        PlayerPrefs.SetInt(DataKeys.TOTAL_GIFTS, totalGifts);
+        PlayerPrefs.SetInt(DataManager.SAVED_LEVEL, currentLevel);
+        PlayerPrefs.SetInt(DataManager.TOTAL_KILLS, totalKills);
+        PlayerPrefs.SetInt(DataManager.TOTAL_GIFTS, totalGifts);
         PlayerPrefs.Save(); 
         Debug.Log("Progress Saved!");
     }
 
     public void LoadProgress()
     {
-        currentLevel = PlayerPrefs.GetInt(DataKeys.SAVED_LEVEL, 1);
-        totalKills = PlayerPrefs.GetInt(DataKeys.TOTAL_KILLS, 0);
-        totalGifts = PlayerPrefs.GetInt(DataKeys.TOTAL_GIFTS, 0);
+        currentLevel = PlayerPrefs.GetInt(DataManager.SAVED_LEVEL, 1);
+        totalKills = PlayerPrefs.GetInt(DataManager.TOTAL_KILLS, 0);
+        totalGifts = PlayerPrefs.GetInt(DataManager.TOTAL_GIFTS, 0);
         Debug.Log("Progress Loaded! Level: " + currentLevel);
     }
     private void CheckLevelUp()
@@ -61,13 +65,6 @@ public class LevelManager : MonoBehaviour
     {
         currentLevel = newLevel.levelNumber;
         SaveProgress();
-
-        // set popup properly
-        //UIManager.Instance.OpenUniversalPopup(
-        //    StoryManager.Instance.mysteryIcon,
-        //    "LEVEL UP: " + newLevel.levelName,
-        //    $"You have reached Level {currentLevel}! The ghosts are getting faster..."
-        //);
 
         //TODO : Make ghosts harder
         if (GhostSpawner.instance != null)

@@ -5,12 +5,11 @@ public class LifeBoxManager : MonoBehaviour
 {
     public static LifeBoxManager Instance;
 
-    public GameObject lifeBoxPrefab; 
+    [SerializeField] private GameObject lifeBoxPrefab; 
     public GameObject activeBox;    
 
-    public float respawnDelay = 30f;
-    public float spawnRadius = 3.5f;
-
+    private float respawnDelay = 30f;
+    private float spawnRadius = 3.5f;
     void Awake()
     {
         Instance = this;

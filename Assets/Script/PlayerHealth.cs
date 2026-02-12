@@ -7,17 +7,11 @@ public class PlayerHealth : MonoBehaviour
 {
     public static PlayerHealth Instance;
 
-    public int maxHealth = 10;
-    public int currentHealth;
-
-    [Header("UI")]
-    //public UIManager damageOverlay;
-
-    public bool isPracticeGhost = false;
+    internal int maxHealth = 10;
+    internal int currentHealth;
 
     private bool isInvulnerable = false;
-    public float invulnerabilityDuration = 1.5f;
-
+    private float invulnerabilityDuration = 1.5f;
     private void Awake()
     {
         // Set the instance as early as possible
