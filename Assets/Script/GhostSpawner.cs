@@ -71,10 +71,14 @@ public class GhostSpawner : MonoBehaviour
 
     public void ReturnGhostToPool(GameObject ghost)
     {
+        Vector3 deathPosition = ghost.transform.position;
+
         ghost.SetActive(false);
         aliveGhosts.Remove(ghost);
         ghostPool.Enqueue(ghost);
 
+        //Try to spawn a shield at the death position
+        LevelManager.Instance.TrySpawnShield(deathPosition);
         // Auto-respawn logic
         if (gameStarted && aliveGhosts.Count <= respawnThreshold)
         {

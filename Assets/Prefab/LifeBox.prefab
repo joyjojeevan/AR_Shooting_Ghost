@@ -118,7 +118,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4885362214581509580}
   - component: {fileID: 3542021647620181649}
-  - component: {fileID: 3211260126532868401}
+  - component: {fileID: 6891877579885514541}
+  - component: {fileID: -202810422556801319}
   m_Layer: 0
   m_Name: LifeBox
   m_TagString: LifeBox
@@ -164,7 +165,20 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3211260126532868401
+--- !u!114 &6891877579885514541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3619924612508802870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6613cb9f368253a44997ea92ed3cbb9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 100
+--- !u!114 &-202810422556801319
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -176,7 +190,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1e61e4e758dfab42925fcdb757954ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 100
 --- !u!1 &4375772740272856735
 GameObject:
   m_ObjectHideFlags: 0

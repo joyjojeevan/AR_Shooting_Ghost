@@ -61,11 +61,11 @@ public class UIManager : MonoBehaviour
     }
     #endregion
     #region Spin Right to Left
-    public void SpinRightToLeft()
-    {
-        //transform.Rotate(50 * Time.deltaTime, 100 * Time.deltaTime, 0);
-        transform.Rotate(0, 0, rotationSpeed * Time.unscaledDeltaTime);
-    }
+    //public void SpinRightToLeft()
+    //{
+    //    //transform.Rotate(50 * Time.deltaTime, 100 * Time.deltaTime, 0);
+    //    transform.Rotate(0, 0, rotationSpeed * Time.unscaledDeltaTime);
+    //}
     #endregion
     # region UpdateHealthUI
     public void UpdateHealthUI()

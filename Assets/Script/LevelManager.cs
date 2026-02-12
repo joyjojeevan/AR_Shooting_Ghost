@@ -18,7 +18,9 @@ public class LevelManager : MonoBehaviour
     public int totalKills = 0;
     public int totalGifts = 0;
 
-
+    [Header("Shield Spawning")]
+    public GameObject shieldPrefab;
+    public float shieldSpawnChance = 0.1f;
 
     void Awake()
     {
@@ -82,5 +84,16 @@ public class LevelManager : MonoBehaviour
     {
         totalGifts++;
         CheckLevelUp();
+    }
+
+    public void TrySpawnShield(Vector3 position)
+    {
+        if (currentLevel >= 3)
+        {
+            if (Random.value < shieldSpawnChance)
+            {
+                Instantiate(shieldPrefab, position + Vector3.up, Quaternion.identity);
+            }
+        }
     }
 }

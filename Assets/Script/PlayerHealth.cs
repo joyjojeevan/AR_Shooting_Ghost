@@ -128,6 +128,24 @@ public class PlayerHealth : MonoBehaviour
 
         Debug.Log("Player Health has been refilled to: " + currentHealth);
     }
+    public void ActivateShield(float duration)
+    {
+        StopCoroutine(nameof(ShieldRoutine)); // Stop any existing shield timer
+        StartCoroutine(ShieldRoutine(duration));
+    }
+
+    private IEnumerator ShieldRoutine(float duration)
+    {
+        isInvulnerable = true;
+        Debug.Log("Shield ON!");
+
+        UIManager.Instance.StartCoroutine(UIManager.Instance.FlashOverlay(Color.blue, 0.3f));
+
+        yield return new WaitForSeconds(duration);
+
+        isInvulnerable = false;
+        Debug.Log("Shield OFF!");
+    }
 }
 
 //public IEnumerator FlashDamageOverlay()

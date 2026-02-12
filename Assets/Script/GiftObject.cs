@@ -1,27 +1,34 @@
 using UnityEngine;
 
-public class GiftObject : MonoBehaviour
+public class GiftObject : MonoBehaviour, ICollectable
 {
-    private float spawnTime;
-
-    void Start()
+    public void Collect()
     {
-        spawnTime = Time.time;
+        // Unique Logic: Progress Story/Level
+        StoryManager.Instance.OnGiftFound();
+        LevelManager.Instance.AddGift();
+        AudioManager.Instance.PlaySound(SoundType.Claim);
     }
-    private void OnTriggerEnter(Collider other)
-    {
-        if (Time.time - spawnTime < 1.0f) return;
-        // Ensure your AR Camera is tagged "MainCamera"
-        if (other.CompareTag("MainCamera"))
-        {
-             StoryManager.Instance.OnGiftFound();
+    //private float spawnTime;
 
-             if (AudioManager.Instance != null)
-                 AudioManager.Instance.PlaySound(SoundType.Claim);
+    //void Start()
+    //{
+    //    spawnTime = Time.time;
+    //}
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (Time.time - spawnTime < 1.0f) return;
+    //    // Ensure your AR Camera is tagged "MainCamera"
+    //    if (other.CompareTag("MainCamera"))
+    //    {
+    //         StoryManager.Instance.OnGiftFound();
 
-             // Hide the gift until the next one spawns
-             gameObject.SetActive(false);
-            
-        }
-    }
+    //         if (AudioManager.Instance != null)
+    //             AudioManager.Instance.PlaySound(SoundType.Claim);
+
+    //         // Hide the gift until the next one spawns
+    //         gameObject.SetActive(false);
+
+    //    }
+    //}
 }
