@@ -61,12 +61,13 @@ public class StoryManager : MonoBehaviour
         UIManager.Instance.OpenUniversalPopup(giftIcon, "GIFT", "You have stabilized a reality anchor. Warning: Entity activity increasing.");
         instructionText.text = "Echo secured. The anomaly is spreading! SURVIVE.";
 
+        //UIManager.Instance.StartContinuousPopup(giftIcon);
         GhostSpawner.instance.gameStarted = true;
         GhostSpawner.instance.SpawnMultiple(3 + giftsFound);
 
         Debug.Log("Ghosts Spawned! Game officially started.");
         LevelManager.Instance.AddGift();
 
-        Invoke("SpawnGift", 50.0f);
+        Invoke(DataManager.SPAWN_GIFT, 50.0f);
     }
 }

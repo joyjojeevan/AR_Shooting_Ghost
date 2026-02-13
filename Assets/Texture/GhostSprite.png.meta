@@ -6,7 +6,7 @@ TextureImporter:
   serializedVersion: 13
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 0
+    enableMipMap: 1
     sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
@@ -37,13 +37,13 @@ TextureImporter:
     filterMode: 1
     aniso: 1
     mipBias: 0
-    wrapU: 1
-    wrapV: 1
+    wrapU: 0
+    wrapV: 0
     wrapW: 0
-  nPOTScale: 0
+  nPOTScale: 1
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 0
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -52,9 +52,9 @@ TextureImporter:
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
-  alphaIsTransparency: 1
+  alphaIsTransparency: 0
   spriteTessellationDetail: -1
-  textureType: 8
+  textureType: 0
   textureShape: 1
   singleChannelComponent: 0
   flipbookRows: 1
@@ -108,298 +108,12 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: PopUpBg
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 782
-        width: 299
-        height: 296
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9413153cbadf3174d95b8cafe5f95bdc
-      internalID: -1025152511
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Border
-      rect:
-        serializedVersion: 2
-        x: 323
-        y: 798
-        width: 457
-        height: 264
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 10ed587a89dcdbe49893d10a1bba34d8
-      internalID: 2058792841
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Gift
-      rect:
-        serializedVersion: 2
-        x: 809
-        y: 810
-        width: 241
-        height: 214
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e13266489f2d40b40a0ab6b2f29ec0b4
-      internalID: 1528068760
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Settings
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 612
-        width: 153
-        height: 164
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7180cfcd7f142174d9d1e6f33e1ffd04
-      internalID: 1695597854
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Back
-      rect:
-        serializedVersion: 2
-        x: 152
-        y: 607
-        width: 157
-        height: 169
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 89703ea7a578ab34dab735f61d22f4fd
-      internalID: -992378950
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Close
-      rect:
-        serializedVersion: 2
-        x: 309
-        y: 609
-        width: 156
-        height: 165
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 46ec6672455bf3f46913e83065ca8429
-      internalID: 1865069960
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Profile
-      rect:
-        serializedVersion: 2
-        x: 466
-        y: 608
-        width: 156
-        height: 165
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 90b70bd3ca030cb4fb13e201a7bc60f5
-      internalID: -1682894840
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Info
-      rect:
-        serializedVersion: 2
-        x: 622
-        y: 607
-        width: 158
-        height: 167
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 14679aed8c66580469ef9a12bc04b9ff
-      internalID: -536393952
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: +Mark
-      rect:
-        serializedVersion: 2
-        x: 781
-        y: 614
-        width: 171
-        height: 159
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 469b3ff0828c3e24cb4d7e992751f4d5
-      internalID: 918304898
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BarFill
-      rect:
-        serializedVersion: 2
-        x: 6
-        y: 373
-        width: 627
-        height: 76
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f66523d4657d181449d3bc13e80750a9
-      internalID: -1292866897
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: LifebarUi
-      rect:
-        serializedVersion: 2
-        x: 22
-        y: 41
-        width: 555
-        height: 211
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 96beb107419fd8e4e9e27fa5e4712d17
-      internalID: 1398806393
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Mistery
-      rect:
-        serializedVersion: 2
-        x: 903
-        y: 231
-        width: 152
-        height: 353
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6e66c1185d74ce640a7e96fe5aa90516
-      internalID: 1146774198
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MenuGun
-      rect:
-        serializedVersion: 2
-        x: 580
-        y: 44
-        width: 447
-        height: 198
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cae082e3e73ac3846986fb58875f5132
-      internalID: -220798556
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 17d49c43ce2a91347a1ae51b4ce7ee86
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -408,20 +122,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      +Mark: 918304898
-      Back: -992378950
-      BarFill: -1292866897
-      Border: 2058792841
-      Close: 1865069960
-      Gift: 1528068760
-      Info: -536393952
-      LifebarUi: 1398806393
-      MenuGun: -220798556
-      Mistery: 1146774198
-      PopUpBg: -1025152511
-      Profile: -1682894840
-      Settings: 1695597854
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -42,6 +42,7 @@ public class UIManager : MonoBehaviour
 
         popupPanel.SetActive(true);
         Time.timeScale = 0;
+        StartGenericPulse(popupIcon.transform, 1.5f, 0.3f);
 
         AudioManager.Instance.PlaySound(SoundType.Claim);
     }
@@ -54,9 +55,9 @@ public class UIManager : MonoBehaviour
     #region Game UI
     public void UpdateGameUI()
     {
-            ammoText.text = "Ammo: " + ShootManager.instance.currentAmmo + " / " + ShootManager.instance.maxAmmo;
+        ammoText.text = "Ammo: " + ShootManager.instance.currentAmmo + " / " + ShootManager.instance.maxAmmo;
 
-            scoreText.text = "Killed: " + ShootManager.instance.killedCount;
+        scoreText.text = "Killed: " + ShootManager.instance.killedCount;
     }
     #endregion
     # region UpdateHealthUI
@@ -70,7 +71,7 @@ public class UIManager : MonoBehaviour
             healthBarFill.color = Color.red;
         else
             healthBarFill.color = Color.green;
-       
+
     }
     #endregion
     #region FlashOverlay
@@ -80,13 +81,13 @@ public class UIManager : MonoBehaviour
         float intensity = startIntensity;
 
         // Set initial color with intensity
-        damageOverlay.color = new Color(flashColor.r,flashColor.g, flashColor.b,intensity);
+        damageOverlay.color = new Color(flashColor.r, flashColor.g, flashColor.b, intensity);
 
         while (intensity > 0)
         {
             intensity -= Time.unscaledDeltaTime * flashFadeSpeed;
 
-            damageOverlay.color = new Color(flashColor.r,flashColor.g,flashColor.b,Mathf.Clamp01(intensity));
+            damageOverlay.color = new Color(flashColor.r, flashColor.g, flashColor.b, Mathf.Clamp01(intensity));
 
             yield return null;
         }
@@ -98,7 +99,7 @@ public class UIManager : MonoBehaviour
     {
         Time.timeScale = 0;
 
-        pausePanel.SetActive(true); 
+        pausePanel.SetActive(true);
     }
 
     public void PressPlay()
@@ -106,6 +107,42 @@ public class UIManager : MonoBehaviour
         Time.timeScale = 1;
 
         pausePanel.SetActive(false);
+    }
+    #endregion
+    #region Universal Animation Logic
+
+    // This function can pulse ANY transform you pass to it
+    public void StartGenericPulse(Transform target, float duration = 1.0f, float strength = 0.2f)
+    {
+        StartCoroutine(UniversalPulseRoutine(target, duration, strength));
+    }
+
+    private IEnumerator UniversalPulseRoutine(Transform target, float duration, float strength)
+    {
+        if (target == null) yield break;
+
+        float tDelta = 0f;
+        Vector3 initialScale = target.localScale;
+
+        // This will loop as long as the object is active
+        while (target != null && target.gameObject.activeInHierarchy)
+        {
+            tDelta += Time.unscaledDeltaTime;
+            float x = tDelta / duration;
+
+            // YOUR MATH: y = 4x - 4x^2
+            float y = 4 * x - 4 * (x * x);
+
+            float currentScale = 1f + (y * strength);
+            target.localScale = initialScale * currentScale;
+
+            if (x >= 1) tDelta = 0; // Reset loop
+
+            yield return null;
+        }
+
+        // Reset scale if the object is still there but loop stopped
+        if (target != null) target.localScale = initialScale;
     }
     #endregion
 }

@@ -5,10 +5,15 @@ public static class DataManager
     public const string SAVED_LEVEL = "SavedLevel";
     public const string TOTAL_KILLS = "TotalKills";
     public const string TOTAL_GIFTS = "TotalGifts";
+    //MainMenu
     public const string HIGH_SCORE = "HighScore";
     public const string PLAYER_NAME = "PlayerName";
     public const string SOUND_SET = "SoundSetting";
     public const string VIBRAT_SET = "VibSetting";
+    //StoryManager
+    public const string SPAWN_GIFT = "SpawnGift";
+
+
 }
 public class LevelManager : MonoBehaviour
 {
@@ -52,7 +57,7 @@ public class LevelManager : MonoBehaviour
         // Check if there is a next level defined
         if (currentLevel < levelDatabase.levels.Count)
         {
-            LevelRequirement nextLevel = levelDatabase.levels[currentLevel]; // levels[1] is actually Level 2
+            LevelRequirement nextLevel = levelDatabase.levels[currentLevel]; 
 
             if (totalGifts >= nextLevel.requiredGifts && totalKills >= nextLevel.requiredKills)
             {
