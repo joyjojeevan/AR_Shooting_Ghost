@@ -68,6 +68,6 @@ public class StoryManager : MonoBehaviour
         Debug.Log("Ghosts Spawned! Game officially started.");
         LevelManager.Instance.AddGift();
 
-        Invoke(DataManager.SPAWN_GIFT, 50.0f);
+        Invoke("SpawnGift", 50.0f);
     }
 }

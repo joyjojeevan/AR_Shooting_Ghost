@@ -22,7 +22,7 @@ public class ShootManager : MonoBehaviour
     private bool isReloading = false;
 
     [Header("Pool Settings")]
-    private int bulletPoolSize = 15;
+    private int bulletPoolSize = 10;
     private Queue<GameObject> bulletPool = new Queue<GameObject>();
 
     [SerializeField] private Animator animator;

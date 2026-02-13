@@ -10,8 +10,8 @@ public static class DataManager
     public const string PLAYER_NAME = "PlayerName";
     public const string SOUND_SET = "SoundSetting";
     public const string VIBRAT_SET = "VibSetting";
-    //StoryManager
-    public const string SPAWN_GIFT = "SpawnGift";
+    ////StoryManager
+    //public const string SPAWN_GIFT = "SpawnGift";
 
 
 }

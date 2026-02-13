@@ -18,7 +18,7 @@ public class GhostSpawner : MonoBehaviour
     private float maxHeight = 1.5f;
 
     [Header("Pool Settings")]
-    private int poolSize = 20;
+    private int poolSize = 10;
 
     private Queue<GameObject> ghostPool = new Queue<GameObject>();
     

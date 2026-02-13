@@ -31,6 +31,11 @@ public class UIManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        Time.timeScale = 1f;// Force the game to unfreeze on restart
+
+        if (popupPanel) popupPanel.SetActive(false);
+        if (pausePanel) pausePanel.SetActive(false);
+        if (gameOverPanel) gameOverPanel.SetActive(false);
     }
 
     #region Gift Popup
@@ -40,11 +45,11 @@ public class UIManager : MonoBehaviour
         popupTitle.text = title;
         popupBody.text = message;
 
+        AudioManager.Instance.PlaySound(SoundType.Claim);
+
         popupPanel.SetActive(true);
         Time.timeScale = 0;
-        StartGenericPulse(popupIcon.transform, 1.5f, 0.3f);
-
-        AudioManager.Instance.PlaySound(SoundType.Claim);
+        StartGenericPulse(popupIcon.transform, 1.5f, 0.3f);    
     }
     public void ClosePopup()
     {
@@ -114,6 +119,7 @@ public class UIManager : MonoBehaviour
     // This function can pulse ANY transform you pass to it
     public void StartGenericPulse(Transform target, float duration = 1.0f, float strength = 0.2f)
     {
+        StopAllCoroutines();
         StartCoroutine(UniversalPulseRoutine(target, duration, strength));
     }
 

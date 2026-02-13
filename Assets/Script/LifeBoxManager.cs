@@ -17,25 +17,14 @@ public class LifeBoxManager : MonoBehaviour
 
     void Start()
     {
-        // late few second
         Invoke("SpawnNewBox", 40f);
     }
 
 
     public void CollectBox()
     {
-        //use invoke
         Invoke("SpawnNewBox", respawnDelay);
-        //StartCoroutine(RespawnTimer());
     }
-
-    //IEnumerator RespawnTimer()
-    //{
-    //    // The box is already set to inactive by the LifeBox script
-    //    yield return new WaitForSeconds(respawnDelay);
-    //    SpawnNewBox();
-    //}
-
     void SpawnNewBox()
     {
         //Calculate Random Position
