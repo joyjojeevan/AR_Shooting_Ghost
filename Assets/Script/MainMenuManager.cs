@@ -12,8 +12,8 @@ public class MainMenuManager : MonoBehaviour
 
     [Header("Settings UI")]
     [SerializeField] private GameObject instructionPanel;
-    [SerializeField] private Toggle soundToggle;
-    [SerializeField] private Toggle vibrationToggle;
+    //[SerializeField] private Toggle soundToggle;
+    //[SerializeField] private Toggle vibrationToggle;
     void Start()
     {
         //high score
@@ -29,8 +29,8 @@ public class MainMenuManager : MonoBehaviour
         bool soundOn = PlayerPrefs.GetInt(DataManager.SOUND_SET, 1) == 1;
         bool vibOn = PlayerPrefs.GetInt(DataManager.VIBRAT_SET, 1) == 1;
 
-        soundToggle.isOn = soundOn;
-        vibrationToggle.isOn = vibOn;
+        UIManager.Instance.soundToggle.isOn = soundOn;
+        UIManager.Instance.vibrationToggle.isOn = vibOn;
 
         instructionPanel.SetActive(false);
 
@@ -65,20 +65,6 @@ public class MainMenuManager : MonoBehaviour
         //PlayerPrefs.Save();
 
         UpdateProfileNameUI(inputName);
-    }
-
-    public void ToggleSound(bool isOn)
-    {
-        PlayerPrefs.SetInt(DataManager.SOUND_SET, isOn ? 1 : 0);
-
-        AudioListener.pause = !isOn;
-        AudioListener.volume = isOn ? 1f : 0f;
-    }
-
-    public void ToggleVibration(bool isOn)
-    {
-        PlayerPrefs.SetInt(DataManager.VIBRAT_SET, isOn ? 1 : 0);
-        //PlayerPrefs.Save();
     }
     #endregion
 }

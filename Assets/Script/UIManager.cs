@@ -26,6 +26,14 @@ public class UIManager : MonoBehaviour
     [Header("Pause Menu")]
     [SerializeField] private GameObject pausePanel;
 
+    [Header("Settings Toggle")]
+    public Toggle soundToggle;
+    public Toggle vibrationToggle;
+
+    [Header("Pause Toggle")]
+    [SerializeField] private Toggle pauseSoundToggle;
+    [SerializeField] private Toggle pauseVibrationToggle;
+
     private float flashFadeSpeed = 1.5f;
 
     private void Awake()
@@ -36,6 +44,12 @@ public class UIManager : MonoBehaviour
         if (popupPanel) popupPanel.SetActive(false);
         if (pausePanel) pausePanel.SetActive(false);
         if (gameOverPanel) gameOverPanel.SetActive(false);
+    }
+    void Start()
+    {
+        soundToggle.isOn = PlayerPrefs.GetInt(DataManager.SOUND_SET, 1) == 1;
+        vibrationToggle.isOn = PlayerPrefs.GetInt(DataManager.VIBRAT_SET, 1) == 1;
+        ToggleSound(soundToggle.isOn);
     }
 
     #region Gift Popup
@@ -102,6 +116,9 @@ public class UIManager : MonoBehaviour
     #region PauseAndPlay
     public void PressPause()
     {
+        pauseSoundToggle.isOn = PlayerPrefs.GetInt(DataManager.SOUND_SET, 1) == 1;
+        pauseVibrationToggle.isOn = PlayerPrefs.GetInt(DataManager.VIBRAT_SET, 1) == 1;
+
         Time.timeScale = 0;
 
         pausePanel.SetActive(true);
@@ -149,6 +166,31 @@ public class UIManager : MonoBehaviour
 
         // Reset scale if the object is still there but loop stopped
         if (target != null) target.localScale = initialScale;
+    }
+    #endregion
+    #region Toggle
+    public void ToggleSound(bool isOn)
+    {
+        PlayerPrefs.SetInt(DataManager.SOUND_SET, isOn ? 1 : 0);
+
+        AudioListener.pause = !isOn;
+        AudioListener.volume = isOn ? 1f : 0f;
+    }
+
+    public void ToggleVibration(bool isOn)
+    {
+        PlayerPrefs.SetInt(DataManager.VIBRAT_SET, isOn ? 1 : 0);
+        //PlayerPrefs.Save();
+    }
+    public void ToggleSoundFromPause(bool isOn)
+    {
+        PlayerPrefs.SetInt(DataManager.SOUND_SET, isOn ? 1 : 0);
+        AudioListener.pause = !isOn;
+        AudioListener.volume = isOn ? 1f : 0f;
+    }
+    public void ToggleVibrationFromPause(bool isOn)
+    {
+        PlayerPrefs.SetInt(DataManager.VIBRAT_SET, isOn ? 1 : 0);
     }
     #endregion
 }

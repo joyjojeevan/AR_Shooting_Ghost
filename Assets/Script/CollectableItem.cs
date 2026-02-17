@@ -37,11 +37,15 @@ public class CollectableItem : MonoBehaviour
         float elapsed = 0;
         Vector3 startPos = transform.position;
 
+        Vector3 initialScale = transform.localScale;
+
         while (elapsed < duration)
         {
+            elapsed += Time.deltaTime;
+            float percent = elapsed / duration;
             transform.position = Vector3.Lerp(startPos, Camera.main.transform.position, elapsed / duration);
             transform.localScale = Vector3.Lerp(Vector3.one, Vector3.zero, elapsed / duration);
-            elapsed += Time.deltaTime;
+            
             yield return null;
         }
 

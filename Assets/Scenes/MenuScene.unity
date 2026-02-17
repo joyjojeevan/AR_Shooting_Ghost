@@ -2291,7 +2291,19 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1735943489}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: ToggleSound
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 1
 --- !u!1 &806508622
 GameObject:
@@ -2797,7 +2809,19 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1735943489}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: ToggleVibration
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 1
 --- !u!224 &1212487518
 RectTransform:
@@ -3942,6 +3966,8 @@ MonoBehaviour:
   damageOverlay: {fileID: 0}
   gameOverPanel: {fileID: 0}
   pausePanel: {fileID: 0}
+  soundToggle: {fileID: 0}
+  vibrationToggle: {fileID: 0}
 --- !u!4 &1735943490
 Transform:
   m_ObjectHideFlags: 0
@@ -4475,8 +4501,6 @@ MonoBehaviour:
   nameInputField: {fileID: 475672397}
   profileName: {fileID: 628071792}
   instructionPanel: {fileID: 1946418612}
-  soundToggle: {fileID: 794845326}
-  vibrationToggle: {fileID: 1212487517}
 --- !u!4 &1952288006
 Transform:
   m_ObjectHideFlags: 0
