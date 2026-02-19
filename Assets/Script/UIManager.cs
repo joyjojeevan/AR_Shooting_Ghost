@@ -116,12 +116,12 @@ public class UIManager : MonoBehaviour
     #region PauseAndPlay
     public void PressPause()
     {
-        pauseSoundToggle.isOn = PlayerPrefs.GetInt(DataManager.SOUND_SET, 1) == 1;
-        pauseVibrationToggle.isOn = PlayerPrefs.GetInt(DataManager.VIBRAT_SET, 1) == 1;
-
         Time.timeScale = 0;
 
         pausePanel.SetActive(true);
+
+        pauseSoundToggle.isOn = PlayerPrefs.GetInt(DataManager.SOUND_SET, 1) == 1;
+        pauseVibrationToggle.isOn = PlayerPrefs.GetInt(DataManager.VIBRAT_SET, 1) == 1;        
     }
 
     public void PressPlay()
